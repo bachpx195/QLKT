@@ -1,0 +1,21 @@
+<%= simple_form_for(@admin_report) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="table-scrollable">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>Phòng</th>
+          <th>Thu tiền phòng</th>
+          <th>Thu điện nước</th>
+          <th>Chi</th>
+        </tr>
+        </thead>
+        <tbody class="item-container">
+        <%= render('detail') %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

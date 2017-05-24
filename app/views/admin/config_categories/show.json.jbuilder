@@ -1,0 +1,1 @@
+json.partial! "admin_config_categories/admin_config_category", admin_config_category: @admin_config_category

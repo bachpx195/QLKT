@@ -1,0 +1,1 @@
+json.array! @admin_room_devices, partial: 'admin_room_devices/admin_room_device', as: :admin_room_device

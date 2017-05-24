@@ -1,0 +1,29 @@
+<div class="table-scrollable">
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th class="text-center"><%= t(:bill_month_year) %></th>
+      <th class="text-center"><%= t(:agreement_building) %></th>
+      <th class="text-center"><%= t(:agreement_room) %></th>
+      <th class="text-center"><%= t(:room_type) %></th>
+      <th class="text-center"><%= t(:agreement_owner) %></th>
+      <th class="text-center"><%= t(:agreement_code) %></th>
+      <th class="text-center"><%= t(:bill_code) %></th>
+      <th class="text-center"><%= t(:bill_status_payment) %></th>
+      <th colspan="3" width="190"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render('agreement_bill') %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_agreements %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_agreements %>
+  </div>
+</div>

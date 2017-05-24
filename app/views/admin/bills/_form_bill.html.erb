@@ -1,0 +1,308 @@
+<%= simple_form_for(@admin_bill, remote: true,:url =>  exported_admin_bills_path ,:html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+    <ul class="errors"></ul>
+
+    <%= f.association :room, as: :hidden, :label => false %>
+    <%= f.input :id, as: :hidden, :label => false %>
+    <%= f.association :agreement, as: :hidden, :label => false %>
+    <%= f.input :month_year, as: :hidden, :label => false %>
+    <%# Nếu đã thanh toán thì không cho phép sửa %>
+    <fieldset <% if @bill_paid == Admin::Constants::BILL_PAID %> disabled <% end %>>
+    <div class="form-group form-md-line-input">
+      <!--Trường hợp sửa thì bổ sung các hidden field.-->
+      <% if @type == Admin::Constants::EDIT %>
+          <label class="col-md-2 control-label">Mã hóa đơn</label>
+          <div class="col-md-4">
+            <%= f.input_field :code, class: 'form-control', :placeholder => t(:bill_code), readonly: true %>
+            <div class="form-control-focus"></div>
+          </div>
+
+          <label class="col-md-2 control-label">Mã hợp đồng</label>
+          <div class="col-md-4">
+            <%= f.association :agreement, :label => false, :include_blank => t(:bill_placeholder_agreement), input_html: { class: 'form-control'}, wrapper: false, :readonly => true, :selected => @admin_agreement.id, disabled: true %>
+            <div class="form-control-focus"></div>
+          </div>
+
+          <label class="col-md-2 control-label">Tháng / năm</label>
+          <div class="col-md-4">
+            <%= f.text_field :month_year, as: :datepicker, class: 'form-control date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy', disabled: true %>
+            <div class="form-control-focus"></div>
+          </div>
+
+          <label class="col-md-2 control-label">Ngày xuất</label>
+          <div class="col-md-4">
+            <%= f.text_field :bill_date, as: :datepicker, class: 'form-control date-picker', :placeholder => t(:bill_placeholder_bill_date), 'data-date-format': 'dd/mm/yyyy', value: convert_datetime(f.object.bill_date) %>
+            <div class="form-control-focus"></div>
+          </div>
+      <% else %>
+        <label class="col-md-1 control-label">Tháng</label>
+        <div class="col-md-2">
+          <%= f.text_field :month_year, as: :datepicker, class: 'form-control date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy', disabled: true %>
+          <div class="form-control-focus"></div>
+        </div>
+
+        <label class="col-md-2 control-label">Mã hợp đồng</label>
+        <div class="col-md-3">
+          <%= f.association :agreement, :label => false, :include_blank => t(:bill_placeholder_agreement), input_html: { class: 'form-control'}, wrapper: false, :readonly => true, :selected => @admin_agreement.id, disabled: true %>
+          <div class="form-control-focus"></div>
+        </div>
+
+        <label class="col-md-2 control-label">Ngày xuất</label>
+        <div class="col-md-2">
+          <%= f.text_field :bill_date, as: :datepicker, class: 'form-control mask_date date-picker', :placeholder => t(:bill_placeholder_bill_date), 'data-date-format': 'dd/mm/yyyy', value: convert_datetime(f.object.bill_date) %>
+          <div class="form-control-focus"></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="form-group form-md-line-input">
+      <div class="col-md-12">
+        <div class="table-scrollable">
+          <table class="table table-bordered table-hover service-table">
+            <thead>
+            <tr>
+              <th><%= t(:service_name)%></th>
+              <th width="100"><%= t(:service_unit)%></th>
+              <th width="150"><%= t(:bill_details_unit_price_with_unit)%></th>
+              <th width="80"><%= t(:bill_details_amount)%></th>
+              <th width="265"><%= t(:bill_details_sub_total_with_unit)%></th>
+            </tr>
+            </thead>
+            <tbody class="services">
+              <% if (@admin_bill_details.nil?)%>
+                <% @admin_agreement_services.each_with_index do |admin_agreement_service,index| %>
+                    <% next if !admin_agreement_service.status.nil? && admin_agreement_service.status == Admin::Constants::AGREEMENT_SERVICE_STATUS_DEACTIVE %>
+                  <tr>
+                    <td><%= admin_agreement_service.service.name %></td>
+                    <td><%= admin_agreement_service.service.unit %></td>
+                    <td>
+                      <% if admin_agreement_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                        <input type="hidden" name="admin_services[id][]" value="<%= admin_agreement_service.service.id %>">
+                        <input name="admin_services[unit_price][]" class="form-control number-format unit-price-service" value="<%= @admin_bill.agreement.room.cost %>">
+                      <% else %>
+                          <input type="hidden" name="admin_services[id][]" value="<%= admin_agreement_service.service.id %>">
+                          <input type="text" name="admin_services[unit_price][]" class="form-control number-format unit-price-service" value="<%= admin_agreement_service.service.unit_price %>", autocomplete ="off">
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if admin_agreement_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                          <input name="admin_services[amount][]" class="form-control amount-service" value="1">
+                      <% else %>
+                          <input type="text" name="admin_services[amount][]" class="form-control number-format amount-service" value="<%= admin_agreement_service.amount_perservice %>", autocomplete ="off">
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if admin_agreement_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                          <% if !@admin_bill.agreement.pre_payment.nil? && @admin_bill.agreement.pre_payment > 0 %>
+                              0 <%= t(:bill_agreement_pre_payment_avai) %>
+                              <input type="hidden" class="subtotal-service" value="0">
+                          <% else %>
+                            <input name="admin_services[total][]" class="form-control number-format subtotal-service" value="<%= @admin_bill.agreement.room.cost %>" readonly>
+                          <% end %>
+                      <% elsif admin_agreement_service.service.code == Admin::Constants::SERVICES::CODE_ELECTRICITY %>
+                          <input type="text" name="admin_services[total][]" class="form-control number-format subtotal-service" value="<%= @total_amount_electricity %>" readonly>
+                      <% elsif admin_agreement_service.service.code == Admin::Constants::SERVICES::CODE_WATER %>
+                          <input type="text" name="admin_services[total][]" class="form-control number-format subtotal-service" value="<%= @total_amount_water %>" readonly>
+                      <% else %>
+                          <input type="text" name="admin_services[total][]" class="form-control number-format subtotal-service" value="<%= admin_agreement_service.service.unit_price * admin_agreement_service.amount_perservice %>" readonly>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+               <% else %>
+                <% @admin_bill_details.each_with_index do |admin_bill_detail,index| %>
+                    <tr>
+                      <td><%= admin_bill_detail.service.name %></td>
+                      <td><%= admin_bill_detail.service.unit %></td>
+                      <td>
+                        <% if admin_bill_detail.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                            <input type="hidden" name="admin_services[id][]" value="<%= admin_bill_detail.service.id %>">
+                            <input  name="admin_services[unit_price][]" class="form-control number-format unit-price-service"  value="<%= admin_bill_detail.unit_price %>">
+                        <% else %>
+                            <input type="hidden" name="admin_services[id][]" value="<%= admin_bill_detail.service.id %>">
+                            <input type="text" name="admin_services[unit_price][]" class="form-control number-format unit-price-service" value="<%= admin_bill_detail.unit_price %>", autocomplete ="off">
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if admin_bill_detail.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                            <input name="admin_services[amount][]" class="form-control amount-service" value="1">
+                        <% else %>
+                            <input type="text" name="admin_services[amount][]" class="form-control number-format amount-service" value="<%= admin_bill_detail.amount %>", autocomplete ="off">
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if admin_bill_detail.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                            <% if admin_bill_detail.total == 0 %>
+                                0 <%= t(:bill_agreement_pre_payment_avai) %>
+                                <input type="hidden" class="subtotal-service" value="0">
+                            <% else %>
+                                <input class="form-control number-format subtotal-service" value="<%= admin_bill_detail.unit_price %>" readonly>
+                            <% end %>
+                        <% else %>
+                            <input type="text" class="form-control number-format subtotal-service" value="<%= admin_bill_detail.total %>" readonly>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% end %>
+               <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 control-label"><%= t(:bill_other_cost) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :other_cost, as: :string, id:'other_cost', class: 'form-control number-format', :placeholder => t(:bill_placeholder_other_cost), autocomplete: 'off' %>
+          <div class="form-control-focus"></div>
+        </div>
+        <label class="col-md-4 control-label"><%= t(:bill_debt_amount) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :debt_amount, as: :string, id:'debt_amount', class: 'form-control', :placeholder => t(:bill_placeholder_debt_amount), readonly: true %>
+          <div class="form-control-focus"></div>
+        </div>
+        <label class="col-md-4 control-label"><%= t(:bill_total) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :total_amount, as: :string, id:'total_amount', class: 'form-control number-format', :placeholder => t(:bill_placeholder_total_amount), readonly: true %>
+          <div class="form-control-focus"></div>
+        </div>
+        <label class="col-md-4 control-label"><%= t(:bill_payment_amount) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :payment_amount, as: :string, id: 'payment_amount', class: 'form-control number-format', :placeholder => t(:bill_placeholder_payment_amount), autocomplete: 'off' %>
+          <div class="form-control-focus"></div>
+        </div>
+        <label class="col-md-4 control-label"><%= t(:bill_remain_amount) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :remain_amount, as: :string, id:'remain_amount', class: 'form-control', :placeholder => t(:bill_placeholder_remain_amount), readonly: true %>
+          <div class="form-control-focus"></div>
+        </div>
+        <label class="col-md-4 control-label"><%= t(:bill_description) %></label>
+        <div class="col-md-8">
+          <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', :placeholder => t(:bill_placeholder_description), maxlength: 500 %>
+          <div class="form-control-focus"></div>
+        </div>
+      </div>
+    </div>
+    </fieldset>
+    <% if @bill_paid != Admin::Constants::BILL_PAID %>
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-print" aria-hidden="true"></i> Xuất hóa đơn
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function () {
+
+    // Format cho dự nợ trước và sau khi load dữ liệu ra
+    // Dư nợ cũ
+    var debt_amount = format_number(parseInt($('#debt_amount').val()) || 0);
+    $('#debt_amount').val(debt_amount);
+    // Dư nợ mới
+    var remain_amount = format_number(parseInt($('#remain_amount').val()) || 0);
+    $('#remain_amount').val(remain_amount);
+
+    // Số lượng => Thành tiền, và thay đổi tổng.
+    $('.amount-service').keyup(function () {
+      // Dịch vụ để tính thành tiền.
+      $service = $(this).closest('tr');
+      selectorChange($service);
+    });
+
+    // Đơn giá => Thành tiền và thay đổi tổng.
+    $('.unit-price-service').keyup(function () {
+      // Dịch vụ để tính thành tiền.
+      $service = $(this).closest('tr');
+      selectorChange($service);
+    });
+
+    // Thanh toán => Thay đổi dư nợ.
+    $('#payment_amount').keyup(function () {
+      var total_amount = parseInt($('#total_amount').val().replace(/[.]/g,'')) || 0;
+      var payment_amount = parseInt($('#payment_amount').val().replace(/[.]/g,'')) || 0;
+      // Dư nợ = Thanh toán - tổng tiền.
+      $('#remain_amount').val(format_number(payment_amount - total_amount));
+    })
+
+    // Chi phí khác => Thay đổi tổng, dư nợ thay đổi.
+    $('#other_cost').keyup(function () {
+      calculateTotal();
+    });
+
+    // Tính tổng.
+    function calculateTotal() {
+      $serviceList = $('.service-table');
+      console.log($serviceList);
+      $rowsService =  $serviceList.find('> tbody > tr');
+
+      // Tổng dịch vụ
+      var total = 0
+      $rowsService.each(function() {
+        $subTotalSelector = $(this).find('.subtotal-service');
+        var subTotal = parseInt($subTotalSelector.val().replace(/[.]/g,'')) || 0;
+        total = total + subTotal;
+      });
+      // Chi phí khác.
+      var other_cost = parseInt($('#other_cost').val().replace(/[.]/g,'')) || 0;
+      var debt_amount = parseInt($('#debt_amount').val().replace(/[.]/g,'')) || 0;
+      // Thanh toán
+      var payment_amount = parseInt($('#payment_amount').val().replace(/[.]/g,'')) || 0;
+      // Dư nợ
+      $('#remain_amount').val(format_number(payment_amount - (other_cost + debt_amount + total)));
+      // Tổng = Chi phí khác + Dư nợ cũ + chi phí khác.
+      $('#total_amount').val(other_cost + debt_amount + total);
+      format_total($('#total_amount'));
+    }
+
+    // Dịch vụ thay đổi (gồm đơn giá và số lượng => Thành tiền thay đổi).
+    function selectorChange(service) {
+      // Lấy giá trị của unit_price
+      $unitPriceSelector =  $service.find('.unit-price-service');
+      $amountSelector =  $service.find('.amount-service');
+      $subTotalSelector =  $service.find('.subtotal-service');
+
+      var unitPrice = parseInt($unitPriceSelector.val().replace(/[.]/g,'')) || 0;
+      var amount = parseInt($amountSelector.val().replace(/[.]/g,'')) || 0;
+      // Thành tiền
+      $subTotalSelector.val(unitPrice * amount);
+      format_total($subTotalSelector);
+      // Tổng
+      calculateTotal();
+    }
+
+    // Format lại dư nợ (chủ động format cho số âm + dương)
+    function format_number(n) {
+      // Nếu số âm thì giữ dấu format xong rồi lại bổ sung dấu.
+      var negative = ''
+      if (n.toString().indexOf('-') >= 0) {
+        n = parseInt(n.toString().replace('-','')) || 0;
+        negative = '-';
+      }
+      // Trả lại đúng giá trị sau khi format (kèm số âm và dương nếu có)
+      return negative + n.toFixed(0).replace(/./g, function(c, i, a) {
+        return i > 0 && c !== "," && (a.length - i) % 3 === 0 ? "." + c : c;
+      });
+    }
+
+    // Cập nhật format cho tổng (luôn > 0)
+    function format_total(total) {
+      $(total).priceFormat({
+        prefix: '',
+        thousandsSeparator: '.',
+        centsLimit: 0
+      });
+    }
+  });
+</script>

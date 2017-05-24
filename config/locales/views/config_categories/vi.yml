@@ -1,0 +1,9 @@
+vi:
+  config_category: "Danh mục cấu hình"
+  config_category_management: "Quản lý danh mục cấu hình"
+  config_category_code: "Mã danh mục"
+  config_category_placeholder_code: "Nhập mã danh mục"
+  config_category_name: "Tên danh mục"
+  config_category_placeholder_name: "Nhập tên danh mục"
+  config_category_description: "Mô tả"
+  config_category_placeholder_description: "Nhập mô tả"

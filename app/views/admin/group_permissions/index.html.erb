@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Group Permissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Function</th>
+      <th>Permission</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_group_permissions.each do |admin_group_permission| %>
+      <tr>
+        <td><%= admin_group_permission.group %></td>
+        <td><%= admin_group_permission.function %></td>
+        <td><%= admin_group_permission.permission %></td>
+        <td><%= link_to 'Show', admin_group_permission %></td>
+        <td><%= link_to 'Edit', edit_admin_group_permission_path(admin_group_permission) %></td>
+        <td><%= link_to 'Destroy', admin_group_permission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Group Permission', new_admin_group_permission_path %>

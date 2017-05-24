@@ -1,0 +1,13 @@
+<tr class="renter-item-<%= item.id %>">
+  <td class="text-center">
+    <a class="btn btn-circle btn-icon-only btn-default item-selection add-selection">
+      <input class="hide" type="checkbox" name="admin_agreement_renter[]" value="<%= item.id %>">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+  </td>
+  <td class="renter-item-name-<%= item.id %>"><%= item.name %></td>
+  <td class="renter-item-idcard-<%= item.id %> text-center"><%= item.identity_card %></td>
+  <td class="text-center">
+    <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_ajax_form_admin_renters_url(item) %>"><i class="icon-pencil"></i></a>
+  </td>
+</tr>

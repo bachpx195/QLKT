@@ -1,0 +1,167 @@
+<%= simple_form_for(@admin_electricity_water, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+
+    <ul class="errors"></ul>
+
+    <%= f.association :room, as: :hidden, :collection => @admin_rooms, :label => false, :include_blank => t(:electricity_water_room_selected), input_html: { class: 'form-control', id: 'room' }, wrapper: false, :selected => (@admin_electricity_water.room.nil?)?0:@admin_electricity_water.room.id %>
+    <%= f.input_field :month_year, as: :hidden %>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:electricity_water_building) %></label>
+      <div class="col-md-4">
+        <select id="building" class="form-control" disabled>
+          <% if @admin_electricity_water.room.nil? %>
+              <option value="0" selected><%= t(:electricity_water_building_selected) %></option>
+              <% @admin_buildings.each do |building| %>
+                  <option value="<%= building.id %>"><%= building.name %></option>
+              <% end %>
+          <% else %>
+              <option value="0"><%= t(:electricity_water_building_selected) %></option>
+              <% @admin_buildings.each do |building| %>
+                <option value="<%= building.id %>"
+                  <% if (building.id == @admin_electricity_water.room.building.id) %> selected
+                  <% end %>><%= building.name %>
+                </option>
+              <% end %>
+          <% end %>
+        </select>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:electricity_water_room) %>
+        <span class="required" aria-required="true"> * </span></label>
+      <div class="col-md-4">
+        <%= f.association :room, :collection => @admin_rooms, :label => false, :include_blank => t(:electricity_water_room_selected), input_html: { class: 'form-control', id: 'room' }, wrapper: false, :selected => (@admin_electricity_water.room.nil?)?0:@admin_electricity_water.room.id, disabled: true %>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:electricity_water_month_year) %></label>
+      <div class="col-md-4">
+        <%= f.text_field :month_year, as: :datepicker, class: 'form-control mask_date date-picker', :placeholder => t(:electricity_water_month_placeholder), 'data-date-format': 'mm/yyyy', disabled: true %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:electricity_water_start_electricity) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :start_electricity, as: :string, id: 'start_electricity', class: 'form-control number-format', placeholder: t(:electricity_water_start_electricity_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:electricity_water_start_water) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :start_water, as: :string, id: 'start_water', class: 'form-control number-format', placeholder: t(:electricity_water_start_water_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:electricity_water_end_electricity) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :end_electricity, as: :string, id: 'end_electricity', class: 'form-control number-format', placeholder: t(:electricity_water_end_electricity_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:electricity_water_end_water) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :end_water, as: :string, id: 'end_water', class: 'form-control number-format', placeholder: t(:electricity_water_end_water_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:electricity_water_total_electricity) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :total_electricity, as: :string, id: 'total_electricity', class: 'form-control number-format', placeholder: t(:electricity_water_total_electricity_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:electricity_water_total_water) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :total_water, as: :string, id: 'total_water', class: 'form-control number-format', placeholder: t(:electricity_water_total_water_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> <%= t(:cancel) %>
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> <%= t(:save) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+<script>
+  $(document).ready(function () {
+    $("#end_electricity").keyup(function () {
+      var end_electricity = $("#end_electricity").val().replace(/[.]/g,'');
+      var start_electricity = $("#start_electricity").val().replace(/[.]/g,'');
+      var a = parseInt(end_electricity) - parseInt(start_electricity);
+      $("#total_electricity").val(a);
+      format_total('#total_electricity');
+    });
+    $("#start_electricity").keyup(function () {
+      var end_electricity = $("#end_electricity").val().replace(/[.]/g,'');
+      var start_electricity = $("#start_electricity").val().replace(/[.]/g,'');
+      var a = parseInt(end_electricity) - parseInt(start_electricity);
+      $("#total_electricity").val(a);
+      format_total('#total_electricity');
+    });
+
+    $("#end_water").keyup(function () {
+        var a = parseInt($("#end_water").val().replace(/[.]/g,'')) - parseInt($("#start_water").val().replace(/[.]/g,''));
+        $("#total_water").val(a);
+        format_total('#total_water');
+    });
+    $("#start_water").keyup(function () {
+        var a = parseInt($("#end_water").val().replace(/[.]/g,'')) - parseInt($("#start_water").val().replace(/[.]/g,''));
+        $("#total_water").val(a);
+        format_total('#total_water');
+    });
+
+    $("#end_electricity").change(function () {
+      var end_electricity = $("#end_electricity").val().replace(/[.]/g,'');
+      var start_electricity = $("#start_electricity").val().replace(/[.]/g,'');
+      if(end_electricity - start_electricity < 0){
+        alert("Số điện tháng này nhở hơn số điện tháng trước");
+      }
+    });
+
+    $("#end_water").change(function () {
+      var end_water = $("#end_water").val().replace(/[.]/g,'');
+      var start_water = $("#start_water").val().replace(/[.]/g,'');
+      if(end_water - start_water < 0){
+        alert("Số nước tháng này nhở hơn số nước tháng trước");
+      }
+    });
+    $('.number-format').priceFormat({
+      prefix: '',
+      thousandsSeparator: '.',
+      centsLimit: 0
+    });
+
+  /* DatePicker */
+    if (jQuery().datepicker) {
+        $('.date-picker').datepicker({
+            rtl: App.isRTL(),
+            orientation: "left",
+            autoclose: true
+        });
+    }
+
+    function format_total(total) {
+      $(total).priceFormat({
+        prefix: '',
+        thousandsSeparator: '.',
+        centsLimit: 0
+      });
+    }
+  });
+</script>

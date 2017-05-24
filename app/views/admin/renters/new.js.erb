@@ -1,0 +1,2 @@
+$("#main-modal").html("<%= j(render partial: 'form', layout: 'shared/modal', locals: { type: Admin::Constants::NEW }) %>")
+$("#main-modal").modal("show")

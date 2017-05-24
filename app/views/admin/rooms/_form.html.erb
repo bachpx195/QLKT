@@ -1,0 +1,64 @@
+<ul class="errors"></ul>
+<%= simple_form_for(@admin_room, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_building) %>
+        <span class="required" aria-required="true"> * </span></label>
+      <div class="col-md-4">
+        <%= f.association :building, as: :hidden %>
+        <%= f.association :building, :label => false, :collection => @admin_buildings, :label_method => :name, :value_method => :id, :include_blank => t(:building_selected), input_html: {class: 'form-control'}, wrapper: false, disabled: true %>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:room_code) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :code, class: 'bg-maxlength form-control', placeholder: t(:room_placeholder_code), maxlength: 11 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_name) %>
+        <span class="required" aria-required="true"> * </span></label>
+      <div class="col-md-4">
+        <%= f.input_field :name, class: 'bg-maxlength form-control', placeholder: t(:room_placeholder_name), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:room_type) %></label>
+      <div class="col-md-4">
+        <%= f.select :room_type, room_type_collection, {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_amount) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :amount, as: :string, class: 'form-control number-format', placeholder: t(:room_placeholder_amount)%>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:room_cost) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :cost, as: :string, class: 'form-control number-format', placeholder: t(:room_placeholder_cost)%>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_description) %></label>
+      <div class="col-md-10">
+        <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: t(:room_placeholder_description), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i><%= t(:cancel) %></button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i><%= t(:save) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

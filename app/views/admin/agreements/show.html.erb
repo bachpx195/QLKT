@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_agreement.user %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @admin_agreement.room %>
+</p>
+
+<p>
+  <strong>Renter:</strong>
+  <%= @admin_agreement.owner %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admin_agreement.code %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @admin_agreement.duration %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @admin_agreement.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @admin_agreement.end_date %>
+</p>
+
+<p>
+  <strong>Out date:</strong>
+  <%= @admin_agreement.out_date %>
+</p>
+
+<p>
+  <strong>Down payment:</strong>
+  <%= @admin_agreement.down_payment %>
+</p>
+
+<p>
+  <strong>Pre payment:</strong>
+  <%= @admin_agreement.pre_payment %>
+</p>
+
+<p>
+  <strong>Billing cycle:</strong>
+  <%= @admin_agreement.billing_cycle %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @admin_agreement.status %>
+</p>
+
+<%= link_to 'Edit', edit_admin_agreement_path(@admin_agreement) %> |
+<%= link_to 'Back', admin_agreements_path %>

@@ -1,0 +1,59 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover items-table-service">
+    <thead>
+    <tr>
+      <th class="text-center">
+        <a class="btn btn-circle btn-icon-only btn-default remove-all-selection-service"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+      </th>
+      <th class="service-building text-center hide"></th>
+      <th class="text-center"><%= t(:service_name) %></th>
+      <th class="text-center"><%= t(:service_price) %></th>
+      <th class="text-center"><%= t(:service_unit) %></th>
+      <th class="amount text-center"><%= t(:service_amount) %></th>
+      <th class="stop-service text-center"><%= t(:agreement_stop_service) %></th>
+    </tr>
+    </thead>
+    <tbody class="item-container-service-right">
+      <%  if defined? @admin_services_in_agreement %>
+        <% @admin_services_in_agreement.each do |admin_service| %>
+          <tr>
+            <td class="text-center">
+              <% if admin_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                  <input class="hide" type="checkbox" name="admin_agreement_service[]" value="<%= admin_service.service.id %>" checked>
+              <% else %>
+                  <a class="btn btn-circle btn-icon-only btn-default item-selection-service remove-selection-service"><input class="hide" type="checkbox" name="admin_agreement_service[]" value="<%= admin_service.service.id %>" checked><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+              <% end %>
+            </td>
+            <td class="service-building-<%= admin_service.service.id %>"><%= admin_service.service.name %></td>
+            <td class="text-center">
+              <% if admin_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                  <%= format_money(@admin_agreement.room.cost) %>
+              <% else %>
+                  <%= format_money(admin_service.service.unit_price) %>
+              <% end %>
+            </td>
+            <td class="text-center"><%= admin_service.service.unit %></td>
+            <td class="amount text-center <%= admin_service.service.id %>">
+              <% if admin_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                 1 <input type="hidden" name="admin_agreement_service_amount[<%= admin_service.service.id %>]" value="<%= admin_service.amount_perservice %>" class="form-control number-format text-center">
+              <% else %>
+                  <input type="text" name="admin_agreement_service_amount[<%= admin_service.service.id %>]" value="<%= admin_service.amount_perservice %>" class="form-control number-format text-center">
+              <% end %>
+            </td>
+            <td class="stop-service text-center <%= admin_service.service.id %>">
+              <% if admin_service.service.code == Admin::Constants::SERVICES::CODE_ROOM %>
+                  <input type="hidden" name="admin_agreement_service_status[<%= admin_service.service.id %>]" value="0" class="form-control text-center">
+              <% else %>
+                  <% if admin_service.status == 1 %>
+                    <div class='md-checkbox-inline'><div class='md-checkbox'><input type='checkbox' id='checkboxstatus<%= admin_service.service.id %>'  name='admin_agreement_service_status[<%= admin_service.service.id %>]' value='1' checked class='md-check'><label for='checkboxstatus<%= admin_service.service.id %>'><span></span><span class='check'></span><span class='box'></span></label></div></div>
+                  <% else %>
+                    <div class='md-checkbox-inline'><div class='md-checkbox'><input type='checkbox' id='checkboxstatus<%= admin_service.service.id %>'  name='admin_agreement_service_status[<%= admin_service.service.id %>]' value='1' class='md-check'><label for='checkboxstatus<%= admin_service.service.id %>'><span></span><span class='check'></span><span class='box'></span></label></div></div>
+                  <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

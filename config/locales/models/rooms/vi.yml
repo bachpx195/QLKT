@@ -1,0 +1,16 @@
+vi:
+  activerecord:
+    models:
+      admin/room: Phòng
+    attributes:
+      admin/room:
+        building: "Khu/dãy trọ"
+        name: "Tên"
+        cost: "Giá phòng"
+        amount: "Số người"
+    errors:
+      models:
+        admin/room:
+          attributes:
+            building:
+              required: "bắt buộc phải chọn"

@@ -1,0 +1,5 @@
+<% if @type == Admin::Constants::AJAXFORM.to_s %>
+<%= render 'shared/save_second_model', item: @admin_renter, item_render: 'admin/agreements/renter' %>
+<% else %>
+<%= render 'shared/created', item: @admin_renter, item_render: 'table' %>
+<% end %>

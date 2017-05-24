@@ -1,0 +1,11 @@
+<% @admin_feedbacks.each do |admin_feedback| %>
+    <tr>
+      <!--<td><%= admin_feedback.user_name %></td>!-->
+      <td><%= admin_feedback.description %></td>
+      <td width="150">
+        <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_admin_feedback_path(admin_feedback) %>"><i class="icon-pencil"></i></a>
+        <a class="btn green btn-circle btn-icon-only btn-default" data-remote="true" href="<%= duplicate_admin_feedbacks_path(id: admin_feedback) %>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+        <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_feedback, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn red btn-circle btn-icon-only btn-default" %>
+      </td>
+    </tr>
+<% end %>

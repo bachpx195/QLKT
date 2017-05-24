@@ -1,0 +1,16 @@
+<% @admin_room_devices.each do |admin_room_device| %>
+    <tr>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_room_device_url(admin_room_device), duplicate_url: duplicate_admin_room_devices_path(id: admin_room_device)} %>
+      </td>
+      <td><%= admin_room_device.room.building.name %></td>
+      <td><%= admin_room_device.room_name %></td>
+      <td><%= admin_room_device.name %></td>
+      <td class="text-center"><%= admin_room_device.amount %></td>
+      <td><%= format_room_device_status(admin_room_device.status) %></td>
+      <td><%= truncate(admin_room_device.description, :length => 50) %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_room_device } %>
+      </td>
+    </tr>
+<% end %>

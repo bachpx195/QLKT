@@ -1,0 +1,12 @@
+vi:
+  room_device: "Thiết bị"
+  room_device_building: "Khu/dãy trọ"
+  room_device_building_selected: "-- Chọn khu/dãy trọ --"
+  room_device_room: "Phòng"
+  room_device_room_selected: "-- Chọn phòng --"
+  room_device_name: "Tên thiết bị"
+  room_device_amount: "Số lượng"
+  room_device_description: "Mô tả"
+  room_device_status: "Trạng thái"
+  room_device_placeholder_name: "Nhập tên thiết bị"
+  room_device_placeholder_amount: "Nhập số lượng"

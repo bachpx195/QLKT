@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-md-5">
+    <%= render 'subform_service_left' %>
+  </div>
+  <div class="col-md-7">
+    <%= render 'subform_service_right' %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('table.items-table-service').on('click', '.add-selection-service, .remove-selection-service', function(){
+      /* "this" is the button element instance */
+      var $btn = $(this).toggleClass('add-selection-service remove-selection-service'),
+      /* define row to be moved by looking up DOM tree*/
+      $item = $btn.closest('tr'),
+      /* define other table */
+      $otherTable = $('.items-table-service').not( $btn.closest('table'));
+
+      $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+      $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+
+      /*Cập nhật uncheck cho checkbox*/
+      var $id = $btn.find('input:checkbox').val();
+      $item.find('#checkboxstatus'+ $id).attr("checked", false);
+
+      if($(this).hasClass("remove-selection-service")){
+        $("."+$id).removeClass("hide");
+      }else{
+        $("."+$id).addClass("hide");
+      };
+
+      $otherTable.append($item);
+    });
+
+    // Remove Or Add all
+    $('table.items-table-service').on('click', '.add-all-selection-service, .remove-all-selection-service', function(){
+
+      // Lấy thông tin bảng được chọn dựa trên phần tử được click
+      $myTable = $(this).closest('table');
+      $rowsMyTable =  $myTable.find('> tbody > tr');
+      $otherTable = $('.items-table-service').not( $(this).closest('table'));
+
+      $rowsMyTable.each(function() {
+        $item1x = $(this).find('.item-selection-service');
+        if ($item1x.length > 0) {
+          var columns = $(this).find('td');
+          columns.each(function() {
+            $btnSelection = $(this).find('.item-selection-service');
+            $btn = $btnSelection.toggleClass('add-selection-service remove-selection-service');
+            $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+            $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+
+            /*Cập nhật uncheck cho checkbox*/
+            var $id = $btn.find('input:checkbox').val();
+            $item = $(this).closest('tr');
+            $item.find('#checkboxstatus'+ $id).attr("checked", false);
+
+            if($btn.hasClass("remove-selection-service")){
+              $("."+$id).removeClass("hide");
+            }else{
+              $("."+$id).addClass("hide");
+            };
+          });
+          $otherTable.append($(this));
+        }
+      });
+    });
+
+    // Xử lý việc tòa nhà thay đổi
+    $("#building_agreement").change(function(){
+      // Lấy toàn bộ services của tòa nhà
+      $.ajax({
+        type: "GET",
+        url: '/admin/services.json?building_id =' + $( "#building_agreement" ).val(),
+        data: {building_id: $( "#building_agreement" ).val()},
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: success,
+        error: error
+      });
+
+      function success(data, status) {
+        $(".item-container-service-left").html("");
+        $(".item-container-service-right").html("");
+        data.forEach(appendOption)
+
+        // Example 3
+        $('.number-format').priceFormat({
+          prefix: '',
+          thousandsSeparator: '.',
+          centsLimit: 0,
+          clearOnEmpty: true
+        });
+      }
+
+      function appendOption(item, index, arr) {
+        var price = item.unit_price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        if (item.unit_price.toString() != '') {
+          price = price + ' VNĐ';
+        }
+        if (item.code == <%= Admin::Constants::SERVICES::CODE_ROOM %>) {
+          var htmlOption = "<tr>"+
+            "<td class='text-center'>"+
+            "<input class='hide' type='checkbox' name='admin_agreement_service[]' value='"+ item.id +"' checked>"+
+            "</td>"+
+            "<td>"+ item.name +"</td>"+
+            "<td class='text-center room-price'></td>"+
+            "<td class='text-center'>"+ item.unit +"</td>"+
+            "<td class='amount text-center "+ item.id +"'>" +
+            "1 <input type='hidden' name='admin_agreement_service_amount["+ item.id +"]' value='1' readonly=true class='form-control number-format text-center'>" +
+            "</td>"+
+            "<td class='stop-service text-center "+ item.id +"'>" +
+            "<input type='hidden' name='admin_agreement_service_status["+ item.id +"]' value='0' readonly=true class='form-control text-center'>" +
+            "</td>"+
+            "</tr>";
+          $(".item-container-service-right").append(htmlOption);
+        }
+        else {
+          var checked = ''
+          if (item.status == 1) {
+            checked = 'checked'
+          }
+
+          var htmlOption = "<tr>"+
+            "<td class='text-center'>"+
+            "<a class='btn btn-circle btn-icon-only btn-default item-selection-service add-selection-service'>" +
+            "<input class='hide' type='checkbox' name='admin_agreement_service[]' value='"+ item.id +"'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></a>"+
+            "</td>"+
+            "<td>"+ item.name +"</td>"+
+            "<td class='text-center'>"+ price +"</td>"+
+            "<td class='text-center'>"+ item.unit +"</td>"+
+            "<td class='amount text-center hide "+ item.id +"'>" +
+            "<input type='text' name='admin_agreement_service_amount["+ item.id +"]' value='1' class='form-control number-format text-center'>" +
+            "</td>"+
+            "<td class='stop-service text-center hide "+ item.id +"'>" +
+            "<div class='md-checkbox-inline'><div class='md-checkbox'><input type='checkbox' id='checkboxstatus" + item.id + "'  name='admin_agreement_service_status["+ item.id +"]' value='1' " + checked + " class='md-check'><label for='checkboxstatus" + item.id + "'><span></span><span class='check'></span><span class='box'></span></label></div></div>" +
+            "</td>"+
+            "</tr>";
+          $(".item-container-service-left").append(htmlOption);
+        }
+      }
+
+      function error() {
+        console.log('Lỗi lấy dữ liệu dịch vụ theo tòa nhà!');
+      }
+    });
+  });
+</script>

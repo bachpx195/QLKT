@@ -1,0 +1,29 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr >
+      <th class="text-center"><%= t(:bill_agreement)%></th>
+      <th class="text-center"><%= t(:bill_month) +"/"+ t(:bill_year) %></th>
+      <th class="text-center"><%= t(:bill_date)%></th>
+      <th class="text-center"><%= t(:bill_other_cost)%></th>
+      <th class="text-center"><%= t(:bill_debt_amount)%></th>
+      <th class="text-center"><%= t(:bill_total)%></th>
+      <th class="text-center"><%= t(:bill_payment_amount)%></th>
+      <th class="text-center"><%= t(:bill_remain_amount)%></th>
+      <th class="text-center"><%= t(:bill_description)%></th>
+    </tr>
+    </thead>
+
+    <tbody class="item-container">
+    <%= render 'bill' %>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_bills %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_bills %>
+  </div>
+</div>

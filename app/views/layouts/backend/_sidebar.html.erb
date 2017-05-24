@@ -1,0 +1,201 @@
+<div class="page-sidebar-wrapper">
+  <!-- BEGIN SIDEBAR -->
+  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+  <div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+      <li class="nav-item start
+        <% if @current_screen == Admin::ScreenName::Group || @current_screen == Admin::ScreenName::Agreement || @current_screen == Admin::ScreenName::ElectricityWater || @current_screen == Admin::ScreenName::Bill || @current_screen == Admin::ScreenName::PaymentBill || @current_screen == Admin::ScreenName::Renter || @current_screen == Admin::ScreenName::Dashboard%> active open
+        <% end %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="icon-home" aria-hidden="true"></i>
+          <span class="title">NGHIỆP VỤ</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Dashboard %> active open
+            <% end %>">
+            <a href="/" class="nav-link ">
+              <i class="fa fa-tachometer" aria-hidden="true"></i>
+              <span class="title">QUẢN LÝ CHUNG</span>
+              <span class="selected"></span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Bill %> active open
+            <% end %>">
+            <a href="<%= agreements_admin_bills_url %>" class="nav-link">
+              <i class="fa fa-credit-card" aria-hidden="true"></i>
+              <span class="title">HÓA ĐƠN</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::ElectricityWater %> active open
+            <% end %>">
+            <a href="<%= admin_electricity_waters_url %>" class="nav-link ">
+              <i class="fa fa-plug" aria-hidden="true"></i>
+              <span class="title">ĐIỆN/NƯỚC</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::PaymentBill %> active open
+            <% end %>">
+            <a href="<%= admin_payment_bills_url %>" class="nav-link ">
+              <i class="fa fa-money" aria-hidden="true"></i>
+              <span class="title">PHIẾU CHI</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Agreement %> active open
+            <% end %>">
+            <a href="<%= admin_agreements_url %>" class="nav-link ">
+              <i class="fa fa-handshake-o" aria-hidden="true"></i>
+              <span class="title">HỢP ĐỒNG</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Renter %> active open
+            <% end %>">
+            <a href="<%= admin_renters_url %>" class="nav-link ">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+              <span class="title">KHÁCH THUÊ</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item start">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+          <span class="title">THỐNG KÊ/ BÁO CÁO</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::RoomStatistic %> active open
+            <% end %>">
+            <a href="<%= admin_room_statistics_url %>" class="nav-link ">
+              <i class="icon-bar-chart"></i>
+              <span class="title">PHÒNG TRỐNG</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Report %> active open
+            <% end %>">
+            <a href="<%= admin_reports_url %>" class="nav-link ">
+              <i class="fa fa-pie-chart" aria-hidden="true"></i>
+              <span class="title">BÁO CÁO TÀI CHÍNH</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item start
+        <% if @current_screen == Admin::ScreenName::Building || @current_screen == Admin::ScreenName::Room || @current_screen == Admin::ScreenName::Service %> active open
+        <% end %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-briefcase" aria-hidden="true"></i>
+          <span class="title">DANH MỤC</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Building %> active open
+            <% end %>">
+            <a href="<%= admin_buildings_url %>" class="nav-link ">
+              <i class="fa fa-sitemap" aria-hidden="true"></i>
+              <span class="title">KHU TRỌ</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Room %> active open
+            <% end %>">
+            <a href="<%= admin_rooms_url %>" class="nav-link ">
+              <i class="fa fa-bed" aria-hidden="true"></i>
+              <span class="title">PHÒNG TRỌ</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::RoomDevice %> active open
+            <% end %>">
+            <a href="<%= admin_room_devices_url %>" class="nav-link ">
+              <i class="fa fa-bath" aria-hidden="true"></i>
+              <span class="title">THIẾT BỊ</span>
+            </a>
+          </li>
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Service %> active open
+            <% end %>">
+            <a href="<%= admin_services_url %>" class="nav-link ">
+              <i class="fa fa-cloud" aria-hidden="true"></i>
+              <span class="title">DỊCH VỤ</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item start
+        <% if @current_screen == Admin::ScreenName::Config %> active open
+        <% end %>">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-cogs" aria-hidden="true"></i>
+          <span class="title">HỆ THỐNG</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item start
+            <% if @current_screen == Admin::ScreenName::Config %> active open
+            <% end %>">
+            <a href="<%= admin_configs_url %>" class="nav-link ">
+              <i class="fa fa-cog" aria-hidden="true"></i>
+              <span class="title">CẤU HÌNH</span>
+            </a>
+          </li>
+          <li class="nav-item start ">
+            <a href="<%= admin_config_categories_url %>" class="nav-link ">
+              <i class="fa fa-cogs" aria-hidden="true"></i>
+              <span class="title">DANH MỤC CẤU HÌNH</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item start ">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-life-ring" aria-hidden="true"></i>
+          <span class="title">TRỢ GIÚP</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
+          <li class="nav-item start ">
+            <a href="#" class="nav-link ">
+              <i class="fa fa-map-o" aria-hidden="true"></i>
+              <span class="title">HƯỚNG DẪN SỬ DỤNG</span>
+            </a>
+          </li>
+          <li class="nav-item start ">
+            <a href="#" class="nav-link ">
+              <i class="fa fa-phone-square" aria-hidden="true"></i>
+              <span class="title">LIÊN HỆ</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+  </div>
+  <!-- END SIDEBAR -->
+</div>

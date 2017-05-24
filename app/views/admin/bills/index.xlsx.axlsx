@@ -1,0 +1,107 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+	margins = {:left => 0.07, :right => 0.07, :top => 0.2, :bottom => 0.12, :header => 0.07, :footer => 0.07}
+	setup = {:fit_to_width => 1, :orientation => :portrait, :paper_width => "80mm", :paper_height => "210mm"}
+	options = {:grid_lines => false, :headings => false, :horizontal_centered => true}
+	font_size = 14
+	service_border = style.add_style(:border => Axlsx::STYLE_THIN_BORDER, :sz => font_size)
+	top_title = style.add_style :b => true,
+                            :sz => font_size,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	main_title = style.add_style :b => true,
+                            :sz => 18,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	center_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	left_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :left,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+											
+	info_center = style.add_style :sz => font_size,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	service_center = style.add_style :sz => font_size,
+							:border => Axlsx::STYLE_THIN_BORDER,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	service_center_bold = style.add_style :sz => font_size,
+							:b => true,
+							:border => Axlsx::STYLE_THIN_BORDER,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_left = style.add_style :sz => font_size,
+                            :alignment => { :horizontal => :left,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_right_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :right,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	
+	wb.add_worksheet(name: "Hóa đơn", :page_margins => margins, :page_setup => setup, :print_options => options) do |sheet|
+	
+		sheet.add_row ["NHÀ TRỌ VĂN MINH - THÂN THIỆN"], :style => [top_title], :height => 30
+		sheet.add_row ["Ngõ 2 Phạm Văn Đồng, Đông Xá, Mai Dịch, Cầu Giấy, Hà Nội"], :style => [info_center]
+		sheet.add_row ["Điện thoại: 0123.974.9368 - (043)7641.883"], :style => [center_bold]
+		sheet.add_row ["-----------------------------"], :style => [info_center]
+		sheet.add_row ["BIÊN LAI THU TIỀN"], :style => [main_title], :height => 40
+		sheet.add_row ["Thông tin khách hàng:"], :style => [left_bold], :height => 20
+		sheet.add_row ["MSKH:", nil, "#KH000001"], :style => [info_left, nil, left_bold], :height => 20
+		sheet.add_row ["Họ và tên:", nil, "Lê Văn Thành"], :style => [info_left, nil, left_bold], :height => 20
+		sheet.add_row ["Thanh toán kinh phí thuê nhà tháng: 12/2016"], :style => [info_left], :height => 20
+		sheet.add_row ["Địa chỉ Phòng:", nil, "P101"], :style => [info_left, nil, left_bold], :height => 20
+		sheet.add_row ["Chi tiết kinh phí:"], :style => [left_bold], :height => 20
+		
+		sheet.merge_cells("A1:E1")
+		sheet.merge_cells("A2:E2")
+		sheet.merge_cells("A3:E3")
+		sheet.merge_cells("A4:E4")
+		sheet.merge_cells("A5:E5")
+		sheet.merge_cells("A6:E6")
+		sheet.merge_cells("A7:B7")
+		sheet.merge_cells("C7:E7")
+		sheet.merge_cells("A8:B8")
+		sheet.merge_cells("C8:E8")
+		sheet.merge_cells("A9:E9")
+		sheet.merge_cells("A10:B10")
+		sheet.merge_cells("C10:E10")
+		sheet.merge_cells("A11:E11")
+		
+		sheet.add_row ["STT", "NỘI DUNG", nil, "SL", "T.TIỀN"], :style => [service_center_bold, service_center_bold, service_center_bold, service_center_bold, service_center_bold]
+		sheet.merge_cells("B12:C12")
+		
+		@export.each_with_index do |e, index|
+			sheet.add_row [1, "Thu hồi mái che xe", nil, "001", "1.000.000"], :style => [service_center, service_border, service_border, service_center, service_center]
+			sheet.merge_cells("B#{13 + index}:C#{13 + index}")
+		end
+		
+		sheet.add_row ["Chi phí khác", nil, nil, nil, "#{other_cost}"], :style => [info_right_bold], :height => 20
+		sheet.add_row ["Dư/nợ cũ", nil, nil, nil, ""], :style => [info_right_bold], :height => 20
+		sheet.add_row ["Tổng tiền", nil, nil, nil, ""], :style => [info_right_bold], :height => 20
+		sheet.add_row ["Thanh toán", nil, nil, nil, ""], :style => [info_right_bold], :height => 20
+		sheet.add_row ["Dư/nợ mới", nil, nil, nil, ""], :style => [info_right_bold], :height => 20
+		sheet.add_row ["Ghi chú", nil, nil, nil, ""], :style => [info_right_bold], :height => 20
+		count = @export.count() + 12
+		sheet.merge_cells("A#{count + 1}:D#{count + 1}")
+		sheet.merge_cells("A#{count + 2}:D#{count + 2}")
+		sheet.merge_cells("A#{count + 3}:D#{count + 3}")
+		sheet.merge_cells("A#{count + 4}:D#{count + 4}")
+		sheet.merge_cells("A#{count + 5}:D#{count + 5}")
+		sheet.merge_cells("A#{count + 6}:D#{count + 6}")
+		
+		sheet.column_widths 6, 12, nil, 6, nil
+	end
+end

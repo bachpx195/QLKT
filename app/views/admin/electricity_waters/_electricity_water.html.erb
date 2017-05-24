@@ -1,0 +1,16 @@
+<% @admin_electricity_waters.each do |admin_electricity_water| %>
+    <tr class="item-<%= "#{admin_electricity_water.room_id}-#{admin_electricity_water.year}-#{admin_electricity_water.month}" %>">
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_by_conditions_admin_electricity_waters_url(admin_electricity_water.room_id, admin_electricity_water.year, admin_electricity_water.month, admin_electricity_water.start_electricity, admin_electricity_water.start_water)} %>
+      </td>
+      <td><%= admin_electricity_water.building_name %></td>
+      <td><%= admin_electricity_water.room_name %></td>
+      <td class="text-center"><%= format_month_year(admin_electricity_water.month,admin_electricity_water.year) %></td>
+      <td class="text-center"><%= admin_electricity_water.start_electricity %></td>
+      <td class="text-center"><%= admin_electricity_water.end_electricity %></td>
+      <td class="text-center"><%= admin_electricity_water.total_electricity %></td>
+      <td class="text-center"><%= admin_electricity_water.start_water %></td>
+      <td class="text-center"><%= admin_electricity_water.end_water %></td>
+      <td class="text-center"><%= admin_electricity_water.total_water %></td>
+    </tr>
+<% end %>

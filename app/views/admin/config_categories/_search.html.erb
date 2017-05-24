@@ -1,0 +1,23 @@
+<!-- BEGIN FORM-->
+<%= simple_form_for :search, url: search_admin_config_categories_path, remote: true, :method => :get, :html => {class: 'form-horizontal'} do |f| %>
+    <div class="form-body">
+      <div class="form-group form-md-line-input">
+        <label class="col-md-3">Nhập tên danh mục</label>
+        <div class="col-md-6">
+          <%= f.text_field :name, placeholder: "Nhập tên danh mục", class: 'form-control' %>
+          <div class="form-control-focus"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= f.button :submit, class: 'btn green' do %>
+              <i class="fa fa-search" aria-hidden="true"></i><%= t(:search) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<!-- END FORM-->

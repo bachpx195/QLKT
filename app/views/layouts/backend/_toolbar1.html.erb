@@ -1,0 +1,80 @@
+<div class="top-toolbar">
+  <div class="row">
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="/" class="icon-btn <% if @current_screen == Admin::ScreenName::Dashboard %>active<% end %>">
+        <i class="fa fa-tachometer"></i> - F1
+        <div> Quản trị</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= agreements_admin_bills_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Bill %>active<% end %>">
+        <i class="fa fa-credit-card"></i> - F2
+        <div> Hóa đơn</div>
+        <span class="badge badge-danger"> 3 </span>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_electricity_waters_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::ElectricityWater %>active<% end %>">
+        <i class="fa fa-plug"></i> - F3
+        <div> Điện / Nước</div>
+        <span class="badge badge-warning"> 12 </span>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_payment_bills_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::PaymentBill %>active<% end %>">
+        <i class="fa fa-money"></i> - F4
+        <div> Phiếu chi</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_agreements_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Agreement %>active<% end %>">
+        <i class="fa fa-handshake-o"></i> - F5
+        <div> Hợp đồng</div>
+        <span class="badge badge-warning"> 4 </span>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_renters_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Renter %>active<% end %>">
+        <i class="fa fa-group"></i> - F6
+        <div> Khách thuê</div>
+        <span class="badge badge-danger"> 2 </span>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_reports_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Report %>active<% end %>">
+        <i class="fa fa-bar-chart-o"></i> - F7
+        <div> Báo cáo</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_buildings_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Building %>active<% end %>">
+        <i class="fa fa-sitemap"></i> - F8
+        <div> Khu trọ</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_rooms_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Room %>active<% end %>">
+        <i class="fa fa-bed"></i> - F9
+        <div> Phòng</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_room_devices_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::RoomDevice %>active<% end %>">
+        <i class="fa fa-bath" aria-hidden="true"></i> - F10
+        <div> Thiết bị</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_services_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Service %>active<% end %>">
+        <i class="fa fa-cloud" aria-hidden="true"></i> - F11
+        <div> Dịch vụ</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= admin_configs_url %>" class="icon-btn <% if @current_screen == Admin::ScreenName::Config %>active<% end %>">
+        <i class="fa fa-cogs"></i> - F12
+        <div> Cấu hình</div>
+      </a>
+    </div>
+  </div>
+</div>

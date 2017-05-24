@@ -1,0 +1,160 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+	margins = {:left => 0.07, :right => 0.07, :top => 0.2, :bottom => 0.12, :header => 0.07, :footer => 0.07}
+	setup = {:fit_to_width => 1, :orientation => :portrait, :paper_width => "80mm", :paper_height => "210mm"}
+	options = {:grid_lines => false, :headings => false, :horizontal_centered => true}
+	font_size = 13
+	line_height = 20
+	line_height_desc = 32
+	service_border = style.add_style(:border => Axlsx::STYLE_THIN_BORDER, :sz => font_size)
+	top_title = style.add_style :b => true,
+                            :sz => font_size,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	main_title = style.add_style :b => true,
+                            :sz => 18,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	center_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	left_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :left,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+
+	info_center = style.add_style :sz => font_size,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+
+	info_center_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+
+	info_center_italic = style.add_style :sz => font_size,
+							:i => true,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_center_italic_bold = style.add_style :sz => font_size,
+							:i => true,
+							:b => true,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+
+	service_center = style.add_style :sz => font_size,
+							:border => Axlsx::STYLE_THIN_BORDER,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	service_right = style.add_style :sz => font_size,
+							:border => Axlsx::STYLE_THIN_BORDER,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	service_center_bold = style.add_style :sz => font_size,
+							:b => true,
+							:border => Axlsx::STYLE_THIN_BORDER,
+                            :alignment => { :horizontal => :center,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_left = style.add_style :sz => font_size,
+                            :alignment => { :horizontal => :left,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_right_bold = style.add_style :sz => font_size,
+							:b => true,
+                            :alignment => { :horizontal => :right,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+	info_right = style.add_style :sz => font_size,
+                            :alignment => { :horizontal => :right,
+                                            :vertical => :center ,
+                                            :wrap_text => true}
+    @admin_bills.each do |admin_bill|
+        wb.add_worksheet(name: "#{admin_bill.code}-#{admin_bill.month}-#{admin_bill.year}", :page_margins => margins, :page_setup => setup, :print_options => options) do |sheet|
+
+            sheet.add_row ["#{@config_building_name}"], :style => [top_title], :height => 32
+            sheet.add_row ["#{@config_building_address}"], :style => [info_center]
+            sheet.add_row ["Điện thoại: #{@config_building_phone}"], :style => [center_bold]
+            sheet.add_row ["-----------------------------"], :style => [info_center]
+            sheet.add_row ["BIÊN LAI THU TIỀN"], :style => [main_title], :height => 40
+            sheet.add_row ["MSKH:", nil, "#{admin_bill.agreement.owner.code}"], :style => [info_left, nil, left_bold], :height => line_height
+            sheet.add_row ["Họ và tên:", nil, "#{admin_bill.agreement.owner.name}"], :style => [info_left, nil, left_bold], :height => line_height
+            sheet.add_row ["Địa chỉ Phòng:", nil, "#{admin_bill.agreement.room.name} - #{admin_bill.agreement.room.building.name}"], :style => [info_left, nil, left_bold], :height => line_height
+            sheet.add_row [], :height => line_height
+            sheet.add_row ["Chi tiết kinh phí:"], :style => [left_bold], :height => line_height
+
+            sheet.merge_cells("A1:F1")
+            sheet.merge_cells("A2:F2")
+            sheet.merge_cells("A3:F3")
+            sheet.merge_cells("A4:F4")
+            sheet.merge_cells("A5:F5")
+            sheet.merge_cells("A6:B6")
+            sheet.merge_cells("C6:F6")
+            sheet.merge_cells("A7:B7")
+            sheet.merge_cells("C7:F7")
+            sheet.merge_cells("A8:B8")
+            sheet.merge_cells("C8:F8")
+            sheet.merge_cells("A9:F9")
+            sheet.merge_cells("A10:F10")
+
+            sheet.add_row ["STT", "NỘI DUNG", nil, "SL", "ĐƠN GIÁ", "T.TIỀN"], :style => [service_center_bold, service_center_bold, nil, service_center_bold, service_center_bold, service_center_bold]
+            sheet.merge_cells("B11:C11")
+
+            admin_bill.bill_detail.each_with_index do |bill_detail, index|
+                sheet.add_row [index + 1, bill_detail.service.name, nil, bill_detail.amount, format_money(bill_detail.unit_price), format_money(bill_detail.amount * bill_detail.unit_price)], :style => [service_center, service_border, service_border, service_center, service_right, service_right]
+                sheet.merge_cells("B#{12 + index}:C#{12 + index}")
+            end
+
+            sheet.add_row ["Chi phí khác", nil, nil, nil, nil, "#{format_money(admin_bill.other_cost)}"], :style => [info_right, nil, nil, nil, nil, info_right], :height => line_height
+            sheet.add_row ["Dư/nợ cũ", nil, nil, nil, nil, "#{format_money(admin_bill.debt_amount)}"], :style => [info_right, nil, nil, nil, nil, info_right], :height => line_height
+            sheet.add_row ["Tổng tiền", nil, nil, nil, nil, "#{format_money(admin_bill.total_amount)}"], :style => [info_right_bold, nil, nil, nil, nil, info_right_bold], :height => line_height
+            sheet.add_row ["Thanh toán", nil, nil, nil, nil, "#{format_money(admin_bill.payment_amount)}"], :style => [info_right, nil, nil, nil, nil, info_right], :height => line_height
+            sheet.add_row ["Dư/nợ mới", nil, nil, nil, nil, "#{format_money(admin_bill.remain_amount)}"], :style => [info_right, nil, nil, nil, nil, info_right], :height => line_height
+            sheet.add_row ["#{convert_money_to_string(admin_bill.total_amount)}", nil, nil, nil, nil, ""], :style => [info_center_italic_bold, nil, nil, nil, nil, nil], :height => line_height_desc
+            sheet.add_row ["Ghi chú: #{admin_bill.description}", nil, nil, nil, nil, ""], :style => [info_center_italic, nil, nil, nil, nil, nil], :height => line_height_desc
+
+            count = admin_bill.bill_detail.count() + 11
+            sheet.merge_cells("A#{count + 1}:E#{count + 1}")
+            sheet.merge_cells("A#{count + 2}:E#{count + 2}")
+            sheet.merge_cells("A#{count + 3}:E#{count + 3}")
+            sheet.merge_cells("A#{count + 4}:E#{count + 4}")
+            sheet.merge_cells("A#{count + 5}:E#{count + 5}")
+            sheet.merge_cells("A#{count + 6}:F#{count + 6}")
+            sheet.merge_cells("A#{count + 7}:F#{count + 7}")
+
+
+
+            sheet.add_row []
+            sheet.add_row ["Hà Nội, Ngày #{DateTime.now.day} tháng #{DateTime.now.month} năm #{DateTime.now.year}", nil, nil, nil, nil], :style => [info_right, nil, nil, nil, nil], :height => line_height
+            sheet.merge_cells("A#{count + 9}:F#{count + 9}")
+
+            sheet.add_row []
+            sheet.add_row ["NGƯỜI NỘP", nil, nil, nil, "NGƯỜI THU", nil], :style => [info_center_bold, nil, nil, nil, info_center_bold, nil], :height => line_height
+            sheet.merge_cells("A#{count + 11}:D#{count + 11}")
+            sheet.merge_cells("E#{count + 11}:F#{count + 11}")
+
+            sheet.add_row []
+			sheet.add_row []
+            sheet.add_row ["#{admin_bill.agreement.owner.name}", nil, nil, nil, "#{@config_bill_owner}", nil], :style => [info_center_bold, nil, nil, nil, info_center_bold, nil], :height => line_height
+            sheet.merge_cells("A#{count + 14}:D#{count + 14}")
+            sheet.merge_cells("E#{count + 14}:F#{count + 14}")
+
+            sheet.add_row []
+            sheet.add_row ["#{@config_bill_note}", nil, nil, nil, nil], :style => [info_center_italic, nil, nil, nil, nil], :height => line_height_desc
+            sheet.merge_cells("A#{count + 16}:F#{count + 16}")
+
+            sheet.column_widths 5, 17, 0, 5, 17, 17
+        end
+	end
+end

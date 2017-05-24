@@ -1,0 +1,1 @@
+json.array! @admin_group_permissions, partial: 'admin_group_permissions/admin_group_permission', as: :admin_group_permission

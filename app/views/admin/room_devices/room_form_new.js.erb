@@ -1,0 +1,3 @@
+$("#second-modal").html("<%= j(render partial: 'form', layout: 'shared/modal', locals: { type: Admin::Constants::AJAXFORM }) %>");
+$("#second-modal").modal("show");
+$("#main-modal").modal("hide");

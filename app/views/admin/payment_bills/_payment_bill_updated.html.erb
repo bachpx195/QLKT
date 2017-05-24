@@ -1,0 +1,16 @@
+<td>
+  <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_payment_bill_url(item), duplicate_url: duplicate_admin_payment_bills_path(id: item)} %>
+</td>
+<td><%= item.building_name %></td>
+<td class="text-center"><%= item.code %></td>
+<td><%= item.name %></td>
+<td class="text-center"><%= format_date_ddMMyyy(item.payment_date) %></td>
+<td class="text-center"><%= convert_payment_type(item.payment_type) %></td>
+<td class="text-center"><%= item.amount %></td>
+<td class="text-center"><%= item.unit %></td>
+<td class="text-center"><%= format_money(item.unit_price) %></td>
+<td class="text-center"><%= format_money(item.payment) %></td>
+<td><%= item.description %></td>
+<td>
+  <%= render partial: 'shared/action_buttons', locals: { delete_url: item } %>
+</td>

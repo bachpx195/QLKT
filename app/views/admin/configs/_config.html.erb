@@ -1,0 +1,13 @@
+<% @admin_configs.each do |admin_config| %>
+    <tr class="item-<%= admin_config.id %>">
+      <td class="col-md-1"><%= admin_config.config_category.name %></td>
+      <td class="col-md-1"><%= admin_config.code %></td>
+      <td class="col-md-3"><%= admin_config.value %></td>
+      <td class="col-md-6"><%= truncate(admin_config.description, :length => 60) %></td>
+      <td class="col-md-2">
+        <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_admin_config_url(admin_config) %>"><i class="icon-pencil"></i></a>
+        <a class="btn green btn-circle btn-icon-only btn-default" data-remote="true" href="<%= duplicate_admin_configs_path(id: admin_config) %>"><i class="fa fa-files-o"></i></a>
+        <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_config, method: :delete, data: {confirm: t(:delete_confirm)}, class: "btn red btn-circle btn-icon-only btn-default" %>
+      </td>
+    </tr>
+<% end %>

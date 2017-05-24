@@ -1,0 +1,16 @@
+vi:
+  activerecord:
+    models:
+      admin/payment_bill: Phiếu chi
+    attributes:
+      admin/payment_bill:
+        building: "Khu/dãy trọ"
+        name: "Tên khoản chi"
+        amount: "Số lượng"
+        unit_price: "Đơn giá"
+    errors:
+      models:
+        admin/payment_bill:
+          attributes:
+            building:
+              required: "bắt buộc phải chọn"

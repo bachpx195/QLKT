@@ -1,0 +1,8 @@
+<% if @type == Admin::Constants::AJAXFORM.to_s %>
+<%= render 'shared/save_second_model', item: @admin_renter, item_render: nil, edit: true %>
+<% elsif @type == Admin::Constants::RENTER_ROOM.to_s %>
+<%= render 'shared/updated', item: @admin_renter, item_render: 'render_updated' %>
+<%= render 'shared/second_form_save', item: @admin_renter, item_render: 'render_updated', edit: true %>
+<% else %>
+<%= render 'shared/updated', item: @admin_renter, item_render: 'render_updated' %>
+<% end %>

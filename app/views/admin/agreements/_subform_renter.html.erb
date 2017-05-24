@@ -1,0 +1,216 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'subform_renter_left' %>
+  </div>
+  <div class="col-md-6">
+    <%= render 'subform_renter_right' %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('table.items-table').on('click', '.add-selection, .remove-selection', function(){
+
+      // Phòng KTX chỉ có 1 người thuê/1 hợp đồng. Phòng đơn thì số người tối đa = số người tối đa trong phòng/1 hợp đồng
+      // 1. Kiểm tra xem nếu là add-selection click.
+      if ($(this).hasClass("add-selection")) {
+        // 2. Lấy thông tin bảng còn lại và đếm số lượng dòng.
+        $removeTable = $('.items-table').not( $(this).closest('table'));
+        $rowsRemoveTable =  $removeTable.find('> tbody > tr');
+
+        // 3. Thõa mãn thì mới cho add sang, ngược lại thì hiển thị thông báo.
+        var room_name = $("#room_agreement option:selected").text();
+        if (room_name.indexOf(" - ") > 0) {
+          var strs = room_name.split(" - ");
+          if (strs.length  == 4) {
+            var amount = parseInt(strs[1]);
+            var type = 0;
+
+            var typeString = strs[2];
+            if (typeString == 'ĐƠN') {
+              type = 0;
+            }
+            else if (typeString == 'KTX') {
+              type = 1;
+            }
+
+            // NẾU PHÒNG ĐƠN
+            if (type == 0) {
+              if ($rowsRemoveTable.length < amount) {
+                /* "this" is the button element instance */
+                var $btn = $(this).toggleClass('add-selection remove-selection'),
+                    /* define row to be moved by looking up DOM tree*/
+                    $item = $btn.closest('tr'),
+                    /* define other table */
+                    $otherTable = $('.items-table').not( $btn.closest('table'));
+
+                $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+                $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+                $otherTable.append($item);
+
+                changeRenterOption();
+              }
+              else {
+                // Báo lỗi
+                $('#error-people-in-room').html("Số người trong hợp đồng không được lớn hơn số người tối đa trong phòng");
+              }
+            }
+            // NẾU PHÒNG KTX
+            else {
+              if ($rowsRemoveTable.length < 1) {
+                /* "this" is the button element instance */
+                var $btn = $(this).toggleClass('add-selection remove-selection'),
+                    /* define row to be moved by looking up DOM tree*/
+                    $item = $btn.closest('tr'),
+                    /* define other table */
+                    $otherTable = $('.items-table').not( $btn.closest('table'));
+
+                $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+                $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+                $otherTable.append($item);
+
+                changeRenterOption();
+              }
+              else {
+                // Báo lỗi
+                $('#error-people-in-room').html("Phòng KTX chỉ được chọn 1 người tương ứng với 1 hợp đồng");
+              }
+            }
+          }
+        }
+      }
+      else {
+        /* "this" is the button element instance */
+        var $btn = $(this).toggleClass('add-selection remove-selection'),
+            /* define row to be moved by looking up DOM tree*/
+            $item = $btn.closest('tr'),
+            /* define other table */
+            $otherTable = $('.items-table').not( $btn.closest('table'));
+
+        $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+        $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+        $otherTable.append($item);
+
+        changeRenterOption();
+      }
+    });
+
+    // Remove Or Add all
+    $('table.items-table').on('click', '.add-all-selection, .remove-all-selection', function(){
+
+      // Phòng KTX chỉ có 1 người thuê/1 hợp đồng. Phòng đơn thì số người tối đa = số người tối đa trong phòng/1 hợp đồng
+      // 1. Kiểm tra xem nếu là add-all-selection click.
+      if ($(this).hasClass("add-all-selection")) {
+        // 2. Lấy thông tin bảng còn lại và đếm số lượng dòng.
+        $removeTable = $('.items-table').not( $(this).closest('table'));
+        $rowsRemoveTable =  $removeTable.find('> tbody > tr');
+
+        $addTable = $(this).closest('table');
+        $rowsAddTable =  $addTable.find('> tbody > tr');
+
+        // 3. Thõa mãn thì mới cho add sang, ngược lại thì hiển thị thông báo.
+        var room_name = $("#room_agreement option:selected").text();
+        if (room_name.indexOf(" - ") > 0) {
+          var strs = room_name.split(" - ");
+          if (strs.length  == 4) {
+            var amount = parseInt(strs[1]);
+            var type = 0;
+
+            var typeString = strs[2];
+            if (typeString == 'ĐƠN') {
+              type = 0;
+            }
+            else if (typeString == 'KTX') {
+              type = 1;
+            }
+
+            // NẾU PHÒNG ĐƠN
+            if (type == 0) {
+              // Tổng số lượng bảng add + remove <= amount
+              if ($rowsAddTable.length + $rowsRemoveTable.length <= amount) {
+                $rowsAddTable.each(function() {
+                  var columns = $(this).find('td');
+                  columns.each(function() {
+                    $btnSelection = $(this).find('.item-selection');
+                    $btn = $btnSelection.toggleClass('add-selection remove-selection');
+                    $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+                    $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+                  });
+                  $removeTable.append($(this));
+                });
+
+                changeRenterOption();
+              }
+              else {
+                // Báo lỗi
+                $('#error-people-in-room').html("Số người trong hợp đồng không được lớn hơn số người tối đa trong phòng");
+              }
+            }
+            // NẾU PHÒNG KTX
+            else {
+              // Tổng số lượng bảng add + remove = 1
+              if ($rowsAddTable.length + $rowsRemoveTable.length == 1) {
+                $rowsAddTable.each(function() {
+                  var columns = $(this).find('td');
+                  columns.each(function() {
+                    $btnSelection = $(this).find('.item-selection');
+                    $btn = $btnSelection.toggleClass('add-selection remove-selection');
+                    $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+                    $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+                  });
+                  $removeTable.append($(this));
+                });
+
+                changeRenterOption();
+              }
+              else {
+                // Báo lỗi
+                $('#error-people-in-room').html("Phòng KTX chỉ được chọn 1 người tương ứng với 1 hợp đồng");
+              }
+            }
+          }
+        }
+      }
+      else {
+        $removeTable = $('.items-table').not( $(this).closest('table'));
+        $rowsRemoveTable =  $removeTable.find('> tbody > tr');
+
+        $addTable = $(this).closest('table');
+        $rowsAddTable =  $addTable.find('> tbody > tr');
+
+        $rowsAddTable.each(function() {
+          var columns = $(this).find('td');
+          columns.each(function() {
+            $btnSelection = $(this).find('.item-selection');
+            $btn = $btnSelection.toggleClass('add-selection remove-selection');
+            $btn.find('span').toggleClass('glyphicon-plus glyphicon-minus');
+            $btn.find('input:checkbox').attr("checked", !$btn.find('input:checkbox').attr("checked"));
+          });
+          $removeTable.append($(this));
+        });
+
+        changeRenterOption();
+      }
+    });
+    
+    function changeRenterOption() {
+      $rightTable = $(".renter-right-container").closest('table');
+      $rowsRightTable =  $rightTable.find('> tbody > tr');
+
+      var owner = $("#admin_agreement_renter_id").val()
+      $("#admin_agreement_renter_id").html("");
+      var htmlOption = "<option value=''><%= t(:agreement_owner_selected) %></option>";
+      $("#admin_agreement_renter_id").append(htmlOption);
+      $rowsRightTable.each(function() {
+        $btnSelection = $(this).find('.item-selection');
+        var id = $btnSelection.find('input:checkbox').val();
+
+        var htmlOption = "<option value='" + id + "'>"+ $(".renter-item-name-"+id).html() +"</option>";
+        if (id == owner) {
+          htmlOption = "<option value='" + id + "' selected>"+ $(".renter-item-name-"+id).html() +"</option>";
+        }
+        $("#admin_agreement_renter_id").append(htmlOption);
+      });
+    }
+  });
+</script>

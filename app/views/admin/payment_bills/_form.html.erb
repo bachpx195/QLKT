@@ -1,0 +1,87 @@
+<%= simple_form_for(@admin_payment_bill, remote: true, :html => { class: 'form-horizontal'} ) do |f| %>
+  <%= f.error_notification %>
+
+  <ul class="errors"></ul>
+
+  <% if (type == Admin::Constants::EDIT)%>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_code) %>:</label>
+    <div class="col-md-4">
+      <%= f.input_field :code, class: 'form-control', readonly: true %>
+      <div class="form-control-focus"> </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_building) %><span class="required" aria-required="true"> * </span></label>
+    <div class="col-md-4">
+      <%= f.association :building, :label => false, :collection => @admin_buildings, :label_method => :name, :value_method => :id, :include_blank => t(:building_selected), input_html: {class: 'form-control'}, wrapper: false %>
+      <div class="form-control-focus"></div>
+    </div>
+    <label class="col-md-2 control-label"><%= t(:payment_bill_name) %><span class="required" aria-required="true"> * </span></label>
+    <div class="col-md-4">
+      <%= f.input_field :name, class: 'bg-maxlength form-control', placeholder: t(:payment_bill_placehoder_name) , maxlength: 255%>
+      <div class="form-control-focus"> </div>
+    </div>
+  </div>
+
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_payment_date) %></label>
+    <div class="col-md-4">
+      <%= f.input_field :payment_date, as: :date, class: 'form-control', placeholder: t(:payment_bill_placehoder_payment_date), html5: true %>
+      <div class="form-control-focus"> </div>
+    </div>
+
+    <label class="col-md-2 control-label"><%= t(:payment_bill_payment_type) %>:</label>
+    <div class="col-md-4">
+      <%= f.select :payment_type, payment_type_collection(), {}, class: "form-control"%>
+    </div>
+  </div>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_amount) %>:</label>
+    <div class="col-md-4">
+      <%= f.input_field :amount, as: :string, class: 'form-control number-format', placeholder:t(:payment_bill_placehoder_amount) %>
+      <div class="form-control-focus"> </div>
+    </div>
+
+    <label class="col-md-2 control-label"><%= t(:payment_bill_unit) %>:</label>
+    <div class="col-md-4">
+      <%= f.input_field :unit, class: 'form-control', placeholder:t(:payment_bill_placehoder_unit), maxlength: 255 %>
+      <div class="form-control-focus"> </div>
+    </div>
+  </div>
+
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_unit_price) %>:</label>
+    <div class="col-md-4">
+      <%= f.input_field :unit_price, as: :string, class: 'form-control number-format', placeholder:t(:payment_bill_placehoder_unit_price) %>
+      <div class="form-control-focus"> </div>
+    </div>
+
+    <label class="col-md-2 control-label"><%= t(:payment_bill_payment) %>:</label>
+    <div class="col-md-4">
+      <%= f.input_field :payment, as: :string, class: 'form-control number-format', placeholder:t(:payment_bill_placehoder_payment) %>
+      <div class="form-control-focus"> </div>
+    </div>
+  </div>
+
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label"><%= t(:payment_bill_description) %>:</label>
+    <div class="col-md-10">
+      <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder:t(:payment_bill_placehoder_description), maxlength: 500%>
+      <div class="form-control-focus"> </div>
+    </div>
+  </div>
+
+  <div class="form-actions margin-top-10">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i><%= t(:cancel)%></button>
+        <%= f.button :button, class: 'btn green' do %>
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> <%= t(:save)%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

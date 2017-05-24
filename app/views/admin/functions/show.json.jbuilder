@@ -1,0 +1,1 @@
+json.partial! "admin_functions/admin_function", admin_function: @admin_function

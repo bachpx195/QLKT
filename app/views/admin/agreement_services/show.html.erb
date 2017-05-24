@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_agreement_service.user %>
+</p>
+
+<p>
+  <strong>Agreement:</strong>
+  <%= @admin_agreement_service.agreement %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @admin_agreement_service.service %>
+</p>
+
+<p>
+  <strong>Amount perservice:</strong>
+  <%= @admin_agreement_service.amount_perservice %>
+</p>
+
+<%= link_to 'Edit', edit_admin_agreement_service_path(@admin_agreement_service) %> |
+<%= link_to 'Back', admin_agreement_services_path %>

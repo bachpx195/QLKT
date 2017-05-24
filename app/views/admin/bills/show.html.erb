@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_bill.user %>
+</p>
+
+<p>
+  <strong>Agreement:</strong>
+  <%= @admin_bill.agreement %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @admin_bill.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @admin_bill.month %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admin_bill.code %>
+</p>
+
+<p>
+  <strong>Bill date:</strong>
+  <%= @admin_bill.bill_date %>
+</p>
+
+<p>
+  <strong>Other cost:</strong>
+  <%= @admin_bill.other_cost %>
+</p>
+
+<p>
+  <strong>Debt amount:</strong>
+  <%= @admin_bill.debt_amount %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @admin_bill.total_amount %>
+</p>
+
+<p>
+  <strong>Payment amount:</strong>
+  <%= @admin_bill.payment_amount %>
+</p>
+
+<p>
+  <strong>Remain amount:</strong>
+  <%= @admin_bill.remain_amount %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_bill.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_bill_path(@admin_bill) %> |
+<%= link_to 'Back', admin_bills_path %>

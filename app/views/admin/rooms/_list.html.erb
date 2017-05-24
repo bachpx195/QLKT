@@ -1,0 +1,57 @@
+<div class="tab-content">
+  <% @admin_buildings.each_with_index do |building, index| %>
+      <div class="tab-pane <% if index == 0%>active<% end %>" id="building_tab<%= building.id %>">
+        <div class="text-right">
+          <% if defined? new_url %>
+              <a class="btn green btn-outline btn-circle btn-sm" data-remote="true" href="<%= new_url %>?building=<%= building.id %>"><i class="fa fa-plus"></i>Thêm</a>
+          <% end %>
+          <% if defined? export_url %>
+              <a id="excel" class="btn green btn-outline btn-circle btn-sm" href="<%= export_url %>?building=<%= building.id %>"><i class="fa fa-file-excel-o"></i>Excel</a>
+          <% end %>
+        </div>
+
+        <div class="table-scrollable">
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+              <th></th>
+              <th><%= t(:room_building) %></th>
+              <th><%= t(:room_code) %></th>
+              <th><%= t(:room_name) %></th>
+              <th><%= t(:room_type) %></th>
+              <th class="text-center"><%= t(:room_amount) %></th>
+              <th class="text-center"><%= t(:room_cost) %></th>
+              <th><%= t(:room_status) %></th>
+              <th><%= t(:room_description) %></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody class="item-container-<%= building.id %>">
+              <% building.rooms.each do |admin_room| %>
+                <tr class="item-<%= admin_room.id %>">
+                  <td class="text-center">
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_admin_room_path(admin_room) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit) %>"><i class="icon-pencil"></i></a>
+                    <% if session[:CHUCNANGCOPY] == '1' %>
+                        <a class="btn green btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= duplicate_admin_rooms_path(id: admin_room) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:copy) %>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+                    <% end %>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= devices_admin_rooms_path(admin_room) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:room_device) %>"><i class="fa fa-bath"></i></a>
+                  </td>
+                  <td><%= admin_room.building.name %></td>
+                  <td><%= admin_room.code %></td>
+                  <td><%= admin_room.name %></td>
+                  <td><%= format_room_type(admin_room.room_type) %></td>
+                  <td class="text-center"><%= admin_room.amount %></td>
+                  <td class="text-center"><%= format_money(admin_room.cost) %></td>
+                  <td><%= format_room_stt(admin_room.status) %></td>
+                  <td><%= admin_room.description %></td>
+                  <td class="text-center">
+                    <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_room, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  <% end %>
+</div>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>User:</strong>
+  <%= @admin_building.user %>
+</p>
+
+
+<p>
+  <strong>Parent:</strong>
+  <%= @admin_building.parent %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admin_building.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_building.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_building.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_building_path(@admin_building) %> |
+<%= link_to 'Back', admin_buildings_path %>

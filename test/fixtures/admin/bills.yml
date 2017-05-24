@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  agreement: one
+  year: 1
+  month: 1
+  code: MyString
+  bill_date: 2016-12-05 21:57:03
+  other_cost: 1
+  debt_amount: 1
+  total_amount: 1
+  payment_amount: 1
+  remain_amount: 1
+  description: MyString
+
+two:
+  user: two
+  agreement: two
+  year: 1
+  month: 1
+  code: MyString
+  bill_date: 2016-12-05 21:57:03
+  other_cost: 1
+  debt_amount: 1
+  total_amount: 1
+  payment_amount: 1
+  remain_amount: 1
+  description: MyString

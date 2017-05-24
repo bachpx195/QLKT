@@ -1,0 +1,182 @@
+<%= simple_form_for(@admin_renter, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+    <ul class="errors"></ul>
+
+    <input type="hidden" name="actionType" value="<%= type %>">
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_name) %><span class="required" aria-required="true"> * </span> </label>
+      <div class="col-md-4">
+        <%= f.input_field :name, class: 'bg-maxlength form-control', placeholder: t(:renter_name_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+      <% if (type == Admin::Constants::EDIT)%>
+          <label class="col-md-2 control-label"><%= t(:renter_owner) %></label>
+          <div class="col-md-4">
+            <div class="md-checkbox-list">
+              <div class="md-checkbox">
+                <input type="checkbox" onclick="return false" id="checkbox2" name="admin_renter[owner]" class="md-check" value="1" <%= f.object.owner == 1 ? "checked=\"checked\"" : "" %>>
+                <label for="checkbox2">
+                  <span></span>
+                  <span class="check"></span>
+                  <span class="box"></span></label>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_birthday) %> </label>
+      <div class="col-md-4">
+        <%= f.input_field :birthday, as: :date, class: 'bg-maxlength form-control', maxlength: 30, html5: true %>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:renter_sex) %></label>
+      <div class="col-md-4">
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input type="radio" id="radio_renter_sex1" name="admin_renter[sex]" class="md-radiobtn" value="0" <%= f.object.sex == 0 ? "checked=\"checked\"" : "" %>>
+            <label for="radio_renter_sex1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:men) %> </label>
+          </div>
+          <div class="md-radio">
+            <input type="radio" id="radio_renter_sex2" name="admin_renter[sex]" class="md-radiobtn" value="1" <%= f.object.sex == 1 ? "checked=\"checked\"" : "" %>>
+            <label for="radio_renter_sex2">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:women) %> </label>
+          </div>
+        </div>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_identity_card) %><span class="required" aria-required="true"> * </span></label>
+      <div class="col-md-4">
+        <%= f.input_field :identity_card, class: 'bg-maxlength form-control', placeholder: t(:renter_identity_card_placehoder), maxlength: 13 %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:renter_issued_card) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :issued_card, class: 'bg-maxlength form-control', placeholder: t(:renter_issued_card_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_phone) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :phone, class: 'bg-maxlength form-control', placeholder: t(:renter_phone_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:renter_email) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :email, class: 'bg-maxlength form-control', placeholder: t(:renter_email_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_address) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :address, class: 'bg-maxlength form-control', placeholder: t(:renter_address_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:renter_temporary_registration) %></label>
+      <div class="col-md-4">
+        <div class="md-checkbox-list">
+          <div class="md-checkbox">
+            <input type="checkbox" id="checkbox_renter_temporary_registration1" name="admin_renter[temporary_registration]" class="md-check" value="1" <%= f.object.temporary_registration == 1 ? "checked=\"checked\"" : "" %>>
+            <label for="checkbox_renter_temporary_registration1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span></label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_career) %></label>
+      <div class="col-md-4">
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input type="radio" id="radio_renter_career1" name="admin_renter[career]" class="md-radiobtn" value="1" <%= f.object.career == 1 ? "checked=\"checked\"" : "" %>>
+            <label for="radio_renter_career1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:student) %> </label>
+          </div>
+          <div class="md-radio">
+            <input type="radio" id="radio_renter_career2" name="admin_renter[career]" class="md-radiobtn" value="2" <%= f.object.career == 2 ? "checked=\"checked\"" : "" %> >
+            <label for="radio_renter_career2">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:worker) %> </label>
+          </div>
+        </div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:renter_university) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :university, class: 'bg-maxlength form-control', placeholder: t(:renter_university_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_parent_name) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :parent_name, class: 'bg-maxlength form-control', placeholder: t(:renter_parent_name_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:renter_parent_phone) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :parent_phone, class: 'bg-maxlength form-control', placeholder: t(:renter_parent_phone_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:renter_hometown) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :hometown, class: 'bg-maxlength form-control', placeholder: t(:renter_hometown_placehoder), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+
+      <label class="col-md-2 control-label"><%= t(:renter_description) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: t(:renter_description_placehoder), maxlength: 500 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal" >
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> <%= t(:cancel) %>
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> <%= t(:save) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+<script>
+  $(document).ready(function() {
+    $("#show-main-modal").click(function () {
+      $("#main-modal").modal("show");
+    });
+  });
+</script>

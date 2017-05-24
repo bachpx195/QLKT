@@ -1,0 +1,13 @@
+<% @admin_buildings.zip(@total_revenue).each do |admin_buiding, total_revenue| %>
+    <tr>
+      <td><%= admin_buiding.name %> </td>
+      <td><%= @month_year_from  %> </td>
+      <td><%=@month_year_end %> </td>
+      <td><%= total_revenue  %> </td>
+      <td> </td>
+      <td> </td>
+      <td>
+        <a class="glyphicon glyphicon-eye-open"  data-remote="true" href= "<%= detail_admin_reports_url(id:admin_buiding.id) %>"></a>
+      </td>
+    </tr>
+<% end %>

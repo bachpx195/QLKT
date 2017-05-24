@@ -1,0 +1,10 @@
+<td class="text-center">
+  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= room_form_edit_admin_room_devices_url(item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit) %>"><i class="icon-pencil"></i></a>
+</td>
+<td><%= item.name %></td>
+<td class="text-center"><%= item.amount %></td>
+<td><%= format_room_device_status(item.status) %></td>
+<td><%= item.description %></td>
+<td class="text-center">
+  <%= link_to raw('<i class="fa fa-trash-o"></i>'), room_form_destroy_admin_room_devices_url(item), method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false, remote: true }, class: "btn red btn-circle btn-icon-only btn-default" %>
+</td>

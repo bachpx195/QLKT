@@ -1,0 +1,2 @@
+json.extract! admin_electricity_water, :id, :user_id, :room_id, :year, :month, :start_electricity, :end_electricity, :total_electricity, :start_water, :end_water, :total_water, :created_at, :updated_at
+json.url admin_electricity_water_url(admin_electricity_water, format: :json)

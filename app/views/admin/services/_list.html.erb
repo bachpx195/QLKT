@@ -1,0 +1,47 @@
+<div class="tab-content">
+  <% @admin_buildings.each_with_index do |building, index| %>
+    <div class="tab-pane <% if index == 0%>active<% end %>" id="building_tab<%= building.id %>">
+      <div class="text-right">
+        <% if defined? new_url %>
+            <a class="btn green btn-outline btn-circle btn-sm" data-remote="true" href="<%= new_url %>?building=<%= building.id %>"><i class="fa fa-plus"></i>Thêm</a>
+        <% end %>
+        <% if defined? export_url %>
+            <a id="excel" class="btn green btn-outline btn-circle btn-sm" href="<%= export_url %>?building=<%= building.id %>"><i class="fa fa-file-excel-o"></i>Excel</a>
+        <% end %>
+      </div>
+
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th><%= t(:service_name) %></th>
+            <th class="text-center"><%= t(:service_price) %></th>
+            <th class="text-center"><%= t(:service_unit) %></th>
+            <th><%= t(:service_decription) %></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="item-container-<%= building.id %>">
+            <% building.services.each do |admin_service| %>
+              <tr class="item-<%= admin_service.id %>">
+                <td class="text-center">
+                  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_admin_service_url(admin_service) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit) %>"><i class="icon-pencil"></i></a>
+                </td>
+                <td><%= admin_service.name %></td>
+                <td class="text-center"><%= format_money(admin_service.unit_price) %></td>
+                <td class="text-center"><%= admin_service.unit %></td>
+                <td><%= admin_service.description %></td>
+                <td class="text-center">
+                  <% if (admin_service.service_type != 1) %>
+                      <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_service, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

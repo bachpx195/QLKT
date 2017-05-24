@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_room.user %>
+</p>
+
+<p>
+  <strong>Building:</strong>
+  <%= @admin_room.building %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @admin_room.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_room.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @admin_room.room_type %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @admin_room.amount %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @admin_room.cost %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @admin_room.status %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_room.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_room_path(@admin_room) %> |
+<%= link_to 'Back', admin_rooms_path %>

@@ -1,0 +1,73 @@
+<%= simple_form_for(@admin_room_statistic, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+    <ul class="errors"></ul>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_device_status) %> </label>
+      <div class="col-md-4">
+        <div class="md-checkbox-list">
+          <div class="md-checkbox">
+            <input type="checkbox" id="checkbox1" name="admin_room_statistic[status]" class="md-check" value="1" <%= f.object.status == 1 ? "checked=\"checked\"" : "" %>>
+            <label for="checkbox1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_name) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :name, class: 'bg-maxlength form-control', placeholder: t(:room_spacehorder_name), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+        <label class="col-md-2 control-label">Giá</label>
+        <div class="col-md-4">
+          <div class="md-radio-inline">
+            <div class="md-radio">
+              <input type="radio" id="radio1" name="admin_room_statistic[cost]" class="md-radiobtn" value="0"  <%= f.object.cost == 0 ? "checked=\"checked\"" : "" %>>
+              <label for="radio1">
+                <span></span>
+                <span class="check"></span>
+                <span class="box"></span>Duới 1.5tr</label>
+            </div>
+            <div class="md-radio">
+              <input type="radio" id="radio2" name="admin_room_statistic[cost]" class="md-radiobtn" value="1" <%= f.object.cost == 1 ? "checked=\"checked\"" : "" %>>
+              <label for="radio2">
+                <span></span>
+                <span class="check"></span>
+                <span class="box"></span>1.5-4.5tr</label>
+            </div>
+            <div class="md-radio">
+              <input type="radio" id="radio3" name="admin_room_statistic[cost]" class="md-radiobtn" value="2" <%= f.object.cost == 2 ? "checked=\"checked\"" : "" %>>
+              <label for="radio3">
+                <span></span>
+                <span class="check"></span>
+                <span class="box"></span>Trên 4.5tr</label>
+            </div>
+          </div>
+          <div class="form-control-focus"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_type) %></label>
+      <div class="col-md-4">
+        <%= f.select :room_type, [[t(:room_spacehorder_type), 0], [format_room_type(0), 0], [format_room_type(1), 1]], {}, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i><%= t(:cancel) %>
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i><%= t(:save) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

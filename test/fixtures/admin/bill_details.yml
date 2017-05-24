@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  bill: one
+  service: one
+  amount: 1
+  unit_price: 1
+  total: 1
+
+two:
+  user: two
+  bill: two
+  service: two
+  amount: 1
+  unit_price: 1
+  total: 1

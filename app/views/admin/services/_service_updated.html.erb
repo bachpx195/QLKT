@@ -1,0 +1,12 @@
+<td class="text-center">
+  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_admin_service_url(item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit) %>"><i class="icon-pencil"></i></a>
+</td>
+<td><%= item.name %></td>
+<td class="text-center"><%= format_money(item.unit_price) %></td>
+<td class="text-center"><%= item.unit %></td>
+<td><%= item.description %></td>
+<td class="text-center">
+  <% if item.service_type !=1 %>
+      <%= link_to raw('<i class="fa fa-trash-o"></i>'), item, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+  <% end %>
+</td>

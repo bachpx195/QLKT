@@ -1,0 +1,17 @@
+<div class="table-scrollable">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+          <th></th>
+          <th><%= t(:building_code)%></th>
+          <th><%= t(:building_name)%></th>
+          <th><%= t(:building_parent)%></th>
+          <th><%= t(:building_description)%></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <%= render('building') %>
+        </tbody>
+    </table>
+</div>

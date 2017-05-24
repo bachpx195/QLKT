@@ -1,0 +1,18 @@
+<td class="text-center">
+  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_admin_room_path(item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit) %>"><i class="icon-pencil"></i></a>
+  <% if session[:CHUCNANGCOPY] == '1' %>
+      <a class="btn green btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= duplicate_admin_rooms_path(id: item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:copy) %>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+  <% end %>
+  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= devices_admin_rooms_path(item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:room_device) %>"><i class="fa fa-bath"></i></a>
+</td>
+<td><%= item.building.name %></td>
+<td><%= item.code %></td>
+<td><%= item.name %></td>
+<td><%= format_room_type(item.room_type) %></td>
+<td class="text-center"><%= item.amount %></td>
+<td class="text-center"><%= format_money(item.cost) %></td>
+<td><%= format_room_stt(item.status) %></td>
+<td><%= item.description %></td>
+<td class="text-center">
+  <%= link_to raw('<i class="fa fa-trash-o"></i>'), item, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+</td>

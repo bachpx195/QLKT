@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+  format_cell_header = style.add_style(bg_color: "D4AC0D", border: Axlsx::STYLE_THIN_BORDER)
+  format_cell = style.add_style(border: Axlsx::STYLE_THIN_BORDER)
+  date_cell = style.add_style(format_code: "dd/mm/yyyy", border: Axlsx::STYLE_THIN_BORDER)
+
+  wb.add_worksheet(name: "Hóa đơn") do |sheet|
+	sheet.add_row ["Mã hóa đơn", "Dịch vụ","Số lượng", "Đơn giá", "Tổng tiền"], style: [format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header]
+    @export.each do |e|
+     sheet.add_row [e.bill.code, e.service.name,e.amount, e.unit_price, e.total], style: [format_cell, format_cell, format_cell,format_cell, format_cell]
+    end
+  end
+end

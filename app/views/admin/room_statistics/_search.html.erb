@@ -1,0 +1,93 @@
+<!-- BEGIN FORM-->
+<%= simple_form_for :search, url: search_admin_room_statistics_path, remote: true, :method => :get, :html => {class: 'form-horizontal'} do |f| %>
+    <div class="form-body margin-top-10">
+      <div class="form-group form-md-line-input">
+        <div class="form-group label_margin">
+          <label>Trạng thái:</label>
+          <div class="checkbox_list_statuses mt-checkbox-list inline_flex">
+            <label class="mt-checkbox mt-checkbox-outline"> Còn trống
+              <input type="checkbox" value="<%= Admin::Constants::ROOM_EMPTY %>" name="status[]"/>
+              <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline"> Đã thuê
+              <input type="checkbox" value="<%= Admin::Constants::ROOM_RENTED %>" name="status[]"/>
+              <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline"> Đã đặt cọc
+              <input type="checkbox" value="<%= Admin::Constants::ROOM_DEPOSITED %>" name="status[]"/>
+              <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline"> Báo chuyển ra
+              <input type="checkbox" value="<%= Admin::Constants::ROOM_RENTED_DEPOSITED %>" name="status[]"/>
+              <span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group form-md-line-input">
+          <div class="col-md-6">
+            <div class="form-group label_margin">
+              <label class="control-label pull-left">Khu trọ:</label>
+              <div class="col-md-8">
+                <%= select("", "building", @admin_buildings.collect { |p| [p.name, p.id] }, {prompt: 'Chọn khu trọ'}) %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group label_margin">
+              <label class="control-label pull-left">Loại phòng:</label>
+              <div class="col-md-8">
+                <select class="bs-select form-control" name="room_type" id="post_room_type_id">
+                  <option value="">Tất cả</option>
+                  <option value="0">Phòng đơn</option>
+                  <option value="1">Phòng KTX</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-md-line-input">
+        <label class="col-md-2 control-label" for="form_control_1">Giá tiền: </label>
+        <div class="col-md-10">
+          <div class="md-radio-inline">
+
+            <div class="md-radio has-info">
+              <input type="radio" id="radio56" name="range" value=1 class="md-radiobtn">
+              <label for="radio56">
+                <span class="inc"></span>
+                <span class="check"></span>
+                <span class="box"></span> Dưới 2.000.000 </label>
+            </div>
+            <div class="md-radio has-warning">
+              <input type="radio" id="radio54" name="range" value=2 class="md-radiobtn">
+              <label for="radio54">
+                <span class="inc"></span>
+                <span class="check"></span>
+                <span class="box"></span> 2.000.000 - 5.000.000 </label>
+            </div>
+            <div class="md-radio has-error">
+              <input type="radio" id="radio55" name="range" value=3 class="md-radiobtn">
+              <label for="radio55">
+                <span class="inc"></span>
+                <span class="check"></span>
+                <span class="box"></span> Trên 5.000.000 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= f.button :submit, class: 'btn green' do %>
+              <i class="fa fa-search" aria-hidden="true"></i><%= t(:search) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+<!-- END FORM-->

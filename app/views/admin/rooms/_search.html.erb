@@ -1,0 +1,49 @@
+<%= simple_form_for :search, url: admin_rooms_path, :method => :get, :html => {class: 'form-horizontal', id: 'searchForm'} do |f| %>
+    <div class="form-body">
+      <div class="form-group form-md-line-input">
+
+        <label class="col-md-2 control-label"><%= t(:room_building) %></label>
+        <div class="col-md-4">
+          <select id="building" name ="search[building]" class="form-control">
+            <option value="0"><%= t(:building_selected) %></option>
+            <% @admin_buildings.each do |building| %>
+                <option value="<%= building.id %>" <% if @building == building.id.to_s %> selected <% end%>><%= building.name %></option>
+            <% end %>
+          </select>
+        </div>
+
+        <label class="col-md-2 control-label"><%= t(:room_name) %></label>
+        <div class="col-md-4">
+          <%= f.input :room, :collection => @admin_rooms, :selected => @room, :label => false, :include_blank => t(:room_selected), input_html: { class: 'form-control', id: 'room' }, wrapper: false %>
+        </div>
+
+      </div>
+
+      <div class="form-group form-md-line-input">
+
+        <label class="col-md-2 control-label"><%= t(:room_type) %></label>
+        <div class="col-md-4">
+          <%= f.select :type, room_type_collection,{:include_blank => t(:room_placeholder_type)}, class: "form-control", input_html: {id: 'type' }%>
+        </div>
+
+        <label class="col-md-2 control-label"><%= t(:room_status) %></label>
+        <div class="col-md-4">
+          <%= f.select :status, room_status_collection, {:include_blank => t(:room_placeholder_status)}, class: "form-control", input_html: {id: 'status' }%>
+        </div>
+
+      </div>
+
+      <div class="form-actions margin-top-10">
+        <div class="row">
+          <div class="col-md-12 text-right">
+            <%= f.button :button, class: 'btn green' do %>
+                <i class="fa fa-search" aria-hidden="true"></i><%= t(:search)%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<% end %>
+<!-- END FORM-->
+

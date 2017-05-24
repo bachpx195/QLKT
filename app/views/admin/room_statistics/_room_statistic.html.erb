@@ -1,0 +1,12 @@
+<% @admin_room_statistics.each do |admin_room_statistic| %>
+    <tr>
+      <td><%= admin_room_statistic.building.name %></td>
+      <td><%= admin_room_statistic.code %></td>
+      <td><%= admin_room_statistic.name %></td>
+      <td><%= format_room_type(admin_room_statistic.room_type) %></td>
+      <td><%= admin_room_statistic.amount %></td>
+      <td><%= format_money(admin_room_statistic.cost) %></td>
+      <td><%= format_room_stt(admin_room_statistic.status) %></td>
+      <td><%= admin_room_statistic.description.truncate(20) %></td>
+    </tr>
+<% end %>

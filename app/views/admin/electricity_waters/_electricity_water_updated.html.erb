@@ -1,0 +1,12 @@
+<td>
+  <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_by_conditions_admin_electricity_waters_url(item.room_id, item.year, item.month, item.start_electricity, item.start_water) %>"><i class="icon-pencil"></i></a>
+</td>
+<td><%= item.room.building.name %></td>
+<td><%= item.room.name %></td>
+<td class="text-center"><%= format_month_year(item.month, item.year) %></td>
+<td class="text-center"><%= item.start_electricity %></td>
+<td class="text-center"><%= item.end_electricity %></td>
+<td class="text-center"><%= item.total_electricity %></td>
+<td class="text-center"><%= item.start_water %></td>
+<td class="text-center"><%= item.end_water %></td>
+<td class="text-center"><%= item.total_water %></td>

@@ -1,0 +1,17 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th><%= t(:service_name) %></th>
+      <th class="text-center"><%= t(:service_price) %></th>
+      <th class="text-center"><%= t(:service_unit) %></th>
+      <th><%= t(:service_decription) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody class="item-container">
+      <%= render 'service', building: building %>
+    </tbody>
+  </table>
+</div>

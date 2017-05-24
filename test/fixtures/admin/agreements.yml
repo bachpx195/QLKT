@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  room: one
+  renter: one
+  code: MyString
+  duration: 1
+  start_date: 2016-12-05 21:55:05
+  end_date: 2016-12-05 21:55:05
+  out_date: 2016-12-05 21:55:05
+  down_payment: 1
+  pre_payment: 1
+  billing_cycle: 1
+  status: 1
+
+two:
+  user: two
+  room: two
+  renter: two
+  code: MyString
+  duration: 1
+  start_date: 2016-12-05 21:55:05
+  end_date: 2016-12-05 21:55:05
+  out_date: 2016-12-05 21:55:05
+  down_payment: 1
+  pre_payment: 1
+  billing_cycle: 1
+  status: 1

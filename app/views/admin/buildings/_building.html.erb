@@ -1,0 +1,14 @@
+<% @admin_buildings.each do |admin_building| %>
+    <tr class="item-<%= admin_building.id %>">
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_building_path(admin_building), duplicate_url: duplicate_admin_buildings_path(id: admin_building)} %>
+      </td>
+      <td><%= admin_building.code %></td>
+      <td><%= admin_building.name %></td>
+      <td><%= admin_building.parent_name %></td>
+      <td><%= admin_building.description %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_building } %>
+      </td>
+    </tr>
+<% end %>

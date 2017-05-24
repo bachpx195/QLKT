@@ -1,0 +1,15 @@
+<% @admin_renters.each do |admin_renter| %>
+  <tr class="renter-item-<%= admin_renter.id %>">
+    <td class="text-center">
+      <a class="btn btn-circle btn-icon-only btn-default item-selection add-selection">
+        <input class="hide" type="checkbox" name="admin_agreement_renter[]" value="<%= admin_renter.id %>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </a>
+    </td>
+    <td class="renter-item-name-<%= admin_renter.id %>"><%= admin_renter.name %></td>
+    <td class="renter-item-idcard-<%= admin_renter.id %> text-center"><%= admin_renter.identity_card %></td>
+    <td class="text-center">
+      <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_ajax_form_admin_renters_url(admin_renter) %>"><i class="icon-pencil"></i></a>
+    </td>
+  </tr>
+<% end %>

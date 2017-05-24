@@ -1,0 +1,28 @@
+<ul class="errors"></ul>
+<%= simple_form_for(@admin_feedback, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label">Người dùng:</label>
+      <div class="col-md-4">
+        <%= f.association :user, :label => false, input_html: { class: 'form-control' }, wrapper: false %>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label">Phản hồi: </label>
+      <div class="col-md-10">
+        <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: "Nhập mô tả", maxlength: 500 %>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy</button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

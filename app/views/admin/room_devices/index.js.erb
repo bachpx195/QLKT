@@ -1,0 +1,2 @@
+$("#main-modal").html("<%= j(render partial: 'room_form_list', layout: 'shared/modal', locals: { type: Admin::Constants::DEVICES }) %>")
+$("#main-modal").modal("show")

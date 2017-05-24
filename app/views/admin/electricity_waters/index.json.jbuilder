@@ -1,0 +1,1 @@
+json.array! @admin_electricity_waters, partial: 'admin_electricity_waters/admin_electricity_water', as: :admin_electricity_water

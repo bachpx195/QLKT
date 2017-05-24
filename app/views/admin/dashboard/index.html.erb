@@ -1,0 +1,93 @@
+<!-- BEGIN TAB PORTLET-->
+<div class="portlet light bordered">
+  <div class="portlet-title tabbable-line">
+    <div class="caption">
+      <i class="icon-share font-dark"></i>
+      <span class="caption-subject font-dark bold uppercase">QUẢN LÝ CHUNG</span>
+    </div>
+    <ul class="nav nav-tabs">
+      <% @admin_buildings.each_with_index do |building, index| %>
+      <li <% if index == 0%>class="active"<% end %>>
+        <a href="#building_tab<%= building.id %>" data-toggle="tab"> <%= building.name %> </a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="portlet-body">
+    <div class="tab-content">
+
+      <% @admin_buildings.each_with_index do |building, index| %>
+          <div class="tab-pane <% if index == 0%>active<% end %>" id="building_tab<%= building.id %>">
+            <div class="row">
+              <% building.rooms.each_with_index do |room, index| %>
+                <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+                <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                  <div class="ribbon ribbon-left ribbon-clip ribbon-shadow ribbon-border-dash-hor <% if room.room_type == 1 %> ribbon-color-primary <% else %> ribbon-color-success <% end %> uppercase">
+                    <div class="ribbon-sub ribbon-clip ribbon-left"></div>
+                    <% if room.room_type == 1 %>P.Đơn <% else %>P.KTX <% end %>
+                  </div>
+                  <div class="portlet-title dashboard-room">
+                    <div class="actions">
+                      <div class="btn-group">
+                        <a class="btn btn-circle btn-default btn-sm" href="javascript:;" data-toggle="dropdown">
+                          <i class="fa fa-users"></i> <%== total_renter(room.id)  %>/<%= room.amount %>
+                          <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                          <li>
+                            <a data-remote="true" href="<%= agreements_by_room_admin_agreements_url(room_id: room) %>">
+                              <i class="fa fa-handshake-o"></i> Hợp đồng
+                              <span class="badge badge-warning"><%= @admin_agreements.where(room_id: room).count %></span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="javascript:;">
+                              <i class="fa fa-share" aria-hidden="true"></i> Trả phòng </a>
+                          </li>
+                          <li>
+                            <a data-remote="true" href="<%= electricity_water_admin_dashboard_index_path(id: room) %>">
+                              <i class="fa fa-plug"></i> Điện/Nước </a>
+                          </li>
+                          <li>
+                            <a data-remote="true" href="<%= renters_in_room_admin_renters_url(id: room.id)  %>">
+                              <i class="fa fa-group"></i> Khách Thuê
+                              <span class="badge badge-warning"><%= total_renter(room.id)  %></span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="portlet-body">
+                    <div class="row">
+                      <div class="col-lg-12 text-center">
+                        <h3 ><i class="fa fa-slideshare" aria-hidden="true"></i> <%= room.name %></h3>
+                        <!--<div class="btn-group btn-group-justified">-->
+                          <!--<a href="javascript:;" class="btn btn-default"> <i class="fa fa-handshake-o"></i> HĐ </a>-->
+                          <!--<a href="javascript:;" class="btn btn-default"> <i class="fa fa-share" aria-hidden="true"></i> Trả.P </a>-->
+                        <!--</div>-->
+                        <!--<div class="clearfix margin-bottom-10"> </div>-->
+                        <!--<div class="btn-group btn-group btn-group-justified">-->
+                          <!--<a href="javascript:;" class="btn btn-default"> <i class="fa fa-plug"></i> Đ/N </a>-->
+                          <!--<a href="javascript:;" class="btn btn-default"> <i class="fa fa-group"></i> KH </a>-->
+                        <!--</div>-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+<!-- END TAB PORTLET-->
+
+<script>
+  jQuery(document).ready(function() {
+    $('[data-toggle="dropdown"]').dropdown();
+  });
+</script>

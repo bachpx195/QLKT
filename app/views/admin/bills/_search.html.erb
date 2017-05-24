@@ -1,0 +1,119 @@
+<!-- BEGIN FORM-->
+<%= simple_form_for :search, url:  agreements_admin_bills_path, :method => :get, :html => {class: 'form-horizontal', id: 'searchForm'} do |f| %>
+    <div class="form-body">
+      <div class="form-group form-md-line-input">
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:bill_month)+"/"+t(:bill_year) %></label>
+            <div class="col-md-8">
+              <%= f.text_field :month_year, as: :datepicker, id: 'month_year', class: 'form-control date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy', value: @month_year %>
+              <div class="form-control-focus"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:electricity_water_building) %></label>
+            <div class="col-md-8">
+              <select id="building_search" name ="search[building]" class="form-control">
+                <option value="0"><%= t(:building_selected) %></option>
+                <% @admin_buildings.each do |building| %>
+                    <option value="<%= building.id %>" <% if @building == building.id.to_s %> selected <% end%>><%= building.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:agreement_room) %></label>
+            <div class="col-md-8">
+              <%= f.input :room, :collection => @admin_rooms, :selected => @room, :label => false, :include_blank => t(:room_selected), input_html: { class: 'form-control', id: 'room_search' }, wrapper: false %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-md-line-input">
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:agreement_owner) %></label>
+            <div class="col-md-8">
+              <%= f.input_field :owner_name,:value => (params[:search].nil?)?'':params[:search][:owner_name], class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:renter_identity_card) %></label>
+            <div class="col-md-8">
+              <%= f.input_field :identity_card,id:'identity_card',:value => (params[:search].nil?)?'':params[:search][:identity_card], class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label class="col-md-4 control-label">Trạng thái</label>
+          <div class="md-radio-inline">
+            <div class="md-radio">
+              <input id="radio1" name="search[paid]" class="md-radiobtn" value="1" <% if params[:search].nil? == false %><% if  params[:search][:paid].to_i == Admin::Constants::BILL_PAID  %> checked="&quot;checked&quot;" <% end %> <% end %>type="radio">
+              <label for="radio1">
+                <span></span>
+                <span class="check"></span>
+                <span class="box"></span> Đã thanh toán
+              </label>
+            </div>
+            <div class="md-radio">
+              <input id="radio2" name="search[paid]" class="md-radiobtn" value="2" <% if params[:search].nil? || params[:search][:paid].to_i == 2  %> checked="&quot;checked&quot;" <% end %> type="radio">
+              <label for="radio2">
+                <span class="inc"></span>
+                <span class="check"></span>
+                <span class="box"></span>  Tất cả
+              </label>
+            </div>
+            <label class="col-md-4 control-label"></label>
+            <div class="md-radio">
+              <input id="radio3" name="search[paid]" class="md-radiobtn" value="0" <% if params[:search].nil? == false %><% if params[:search][:paid].to_i == Admin::Constants::BILL_NOT_PAID %> checked="&quot;checked&quot;" <% end %><% end %> type="radio">
+              <label for="radio3">
+                <span class="inc"></span>
+                <span class="check"></span>
+                <span class="box"></span> Chưa thanh toán
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    // Check change to submit form.
+    var monthYear = $(this).val()
+    $("#month_year").change(function(){
+      if (monthYear != '' && monthYear != $(this).val()) {
+        // Month/Year Validate
+        $("#searchForm").submit()
+      }
+      monthYear = $(this).val()
+    });
+
+    $("#building_search").change(function(){
+      $("#searchForm").submit()
+    });
+
+    $("#room_search").change(function(){
+      $("#searchForm").submit()
+    });
+    $("#identity_card").change(function () {
+      $("#searchForm").submit();
+    })
+    /* DatePicker */
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+      });
+      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+    }
+  });
+</script>

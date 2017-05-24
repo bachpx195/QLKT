@@ -1,0 +1,23 @@
+<td class="text-center">
+  <%if @type==Admin::Constants::RENTER_ROOM.to_s%>
+      <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_renter_url(item)} %>
+  <% else  %>
+      <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_renter_url(item), duplicate_url: duplicate_admin_renters_path(id: item)} %>
+  <% end %></td>
+<td class="text-center"><%= item.code %></td>
+<td><%= item.name %></td>
+<td class="text-center"><%= convert_datetime(item.birthday) %></td>
+<td class="text-center"><%= convert_sex(item.sex) %></td>
+<td><%= item.identity_card %></td>
+<td><%= item.phone %></td>
+<td><%= item.address %></td>
+<td class="text-center"><%= convert_career(item.career) %></td>
+<td class="text-center"><%= convert_temporary_registration(item.temporary_registration) %></td>
+<td><%= item.parent_name %></td>
+<td><%= item.parent_phone %></td>
+<td class="text-center"><%= convert_owner(item.owner) %></td>
+<td class="text-center"><%= convert_available_status(item.available_status) %></td>
+<td><%= item.description %></td>
+<td class="text-center">
+  <%= render partial: 'shared/action_buttons', locals: { delete_url: item } %>
+</td>

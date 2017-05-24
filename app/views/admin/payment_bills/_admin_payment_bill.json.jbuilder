@@ -1,0 +1,2 @@
+json.extract! admin_payment_bill, :id, :user_id, :code, :name, :payment_date, :payment_type, :amount, :unit, :unit_price, :payment, :description, :created_at, :updated_at
+json.url admin_payment_bill_url(admin_payment_bill, format: :json)

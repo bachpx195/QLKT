@@ -1,0 +1,134 @@
+<ul class="errors"></ul>
+<%= simple_form_for(@admin_room_device, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+
+    <ul class="errors"></ul>
+    <% if @admin_room_device.room.nil? %>
+        <input type="hidden" id="last_room" value="0">
+    <% else %>
+        <input type="hidden" id="last_room" value="<%= @admin_room_device.room.id %>">
+    <% end %>
+    <input type="hidden" name="actionType" value="<%= type %>">
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_building) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <% if (defined?(@types)).nil? %>
+        <select id="building" class="form-control">
+          <% if @admin_room_device.room.nil? %>
+              <option value="0" selected><%= t(:building_selected) %></option>
+              <% @admin_buildings.each do |building| %>
+                  <option value="<%= building.id %>"><%= building.name %></option>
+              <% end %>
+          <% else %>
+              <option value="0"><%= t(:building_selected) %></option>
+              <% @admin_buildings.each do |building| %>
+                  <option value="<%= building.id %>"
+                          <% if (building.id == @admin_room_device.room.building.id) %> selected
+                          <% end %>><%= building.name %></option>
+              <% end %>
+          <% end %>
+        </select>
+            <% else %>
+            <select id="building" class="form-control" disabled>
+              <% if @admin_room_device.room.nil? %>
+                  <option value="0" selected><%= t(:building_selected) %></option>
+                  <% @admin_buildings.each do |building| %>
+                      <option value="<%= building.id %>"><%= building.name %></option>
+                  <% end %>
+              <% else %>
+                  <option value="0"><%= t(:building_selected) %></option>
+                  <% @admin_buildings.each do |building| %>
+                      <option value="<%= building.id %>"
+                              <% if (building.id == @admin_room_device.room.building.id) %> selected
+                              <% end %>><%= building.name %></option>
+                  <% end %>
+              <% end %>
+            </select>
+        <% end %>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_room) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <% if (defined?(@types)).nil? %>
+            <%= f.association :room, :collection => @admin_rooms, :label => false, :label_method => lambda { |room| "#{room.name}" }, :include_blank => t(:room_selected), input_html: {class: 'form-control', id: 'room'}, wrapper: false, :selected => (@admin_room_device.room.nil?) ? 0 : @admin_room_device.room.id %>
+        <% else %>
+            <%= f.association :room, :collection => @admin_rooms, :label => false, :label_method => lambda { |room| "#{room.name}" }, :include_blank => t(:room_selected), input_html: {class: 'form-control', id: 'room'}, wrapper: false, :selected => (@admin_room_device.room.nil?) ? 0 : @admin_room_device.room.id,  disabled: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_device_name) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :name, class: 'bg-maxlength form-control', placeholder: t(:room_device_placeholder_name), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_device_amount) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :amount, class: 'bg-maxlength form-control', placeholder: t(:room_device_placeholder_amount), maxlength: 255 %>
+        <div class="form-control-focus"></div>
+      </div>
+
+
+      <label class="col-md-2 control-label"><%= t(:room_device_status) %></label>
+      <div class="col-md-4">
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input type="radio" id="radio1" name="admin_room_device[status]" class="md-radiobtn" value="0"  <%= f.object.status == 0 ? "checked=\"checked\"" : "" %>>
+            <label for="radio1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span>Sử dụng tốt </label>
+          </div>
+          <div class="md-radio">
+            <input type="radio" id="radio2" name="admin_room_device[status]" class="md-radiobtn" value="1" <%= f.object.status == 1 ? "checked=\"checked\"" : "" %>>
+            <label for="radio2">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span>Mới 50%</label>
+          </div>
+          <div class="md-radio">
+            <input type="radio" id="radio3" name="admin_room_device[status]" class="md-radiobtn" value="2" <%= f.object.status == 2 ? "checked=\"checked\"" : "" %>>
+            <label for="radio3">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span>Hỏng</label>
+          </div>
+        </div>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:room_device_description) %></label>
+      <div class="col-md-10">
+        <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: "Nhập mô tả", maxlength: 500 %>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i><%= t(:cancel) %>
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i><%= t(:save) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+<script>
+    $(document).ready(function () {
+        $("#show-main-modal").click(function () {
+            $("#main-modal").modal("show");
+        });
+    });
+</script>

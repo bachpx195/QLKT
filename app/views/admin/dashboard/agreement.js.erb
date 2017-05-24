@@ -1,0 +1,2 @@
+$("#main-modal").html("<%= j(render partial: 'agreement', layout: 'shared/modal', locals: { type: Admin::Constants::AGREEMENT_ROOM}) %>")
+$("#main-modal").modal("show")

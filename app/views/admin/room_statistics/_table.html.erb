@@ -1,0 +1,28 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover pretty">
+    <thead>
+    <tr>
+      <th><%= sortable "building.name", t(:room_building)%></th>
+      <th class="asc"><%= sortable "code", t(:room_code) %></th>
+      <th><%= sortable "name", t(:room_name) %></th>
+      <th><%= sortable "room_type", t(:room_type) %></th>
+      <th><%= sortable "amount", t(:room_amount) %></th>
+      <th><%= sortable "cost", t(:room_cost) %></th>
+      <th><%= sortable "status",t(:room_status) %></th>
+      <th><%= sortable "description",  t(:room_description)  %></th>
+    </tr>
+    </thead>
+    <tbody class="item-container">
+    <%= render('room_statistic') %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_room_statistics %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_room_statistics %>
+  </div>
+</div>

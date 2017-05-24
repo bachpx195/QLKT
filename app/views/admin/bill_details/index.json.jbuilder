@@ -1,0 +1,1 @@
+json.array! @admin_bill_details, partial: 'admin_bill_details/admin_bill_detail', as: :admin_bill_detail

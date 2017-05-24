@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @admin_electricity_water.errors.any? %>
+  <% @admin_electricity_water.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $(".item-<%= "#{@admin_electricity_water.room.id}-#{@admin_electricity_water.year}-#{@admin_electricity_water.month}" %>").html("<%= j(render 'electricity_water_updated', item: @admin_electricity_water ) %>")
+  $("#main-modal").modal("hide")
+<% end %>

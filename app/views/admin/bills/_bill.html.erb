@@ -1,0 +1,13 @@
+<% @admin_bills.each do |admin_bill| %>
+    <tr class="text-center">
+      <td><%= admin_bill.code %></td>
+      <td><%= admin_bill.month.to_s+"/"+admin_bill.year.to_s %></td>
+      <td><%= convert_datetime(admin_bill.bill_date) %></td>
+      <td><%= format_money(admin_bill.other_cost) %></td>
+      <td><%=format_money(admin_bill.debt_amount) %></td>
+      <td><%= format_money(admin_bill.total_amount) %></td>
+      <td><%= format_money(admin_bill.payment_amount) %></td>
+      <td><%= format_money(admin_bill.remain_amount) %></td>
+      <td><%= admin_bill.description %></td>
+    </tr>
+<% end %>

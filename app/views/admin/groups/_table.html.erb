@@ -1,0 +1,24 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Level</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody class="item-container">
+    <%= render('group') %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_groups %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_groups %>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+json.extract! admin_renter, :id, :user_id, :code, :name, :birthday, :sex, :identity_card, :issued_card, :phone, :email, :address, :career, :university, :parent_name, :parent_phone, :hometown, :temporary_registration, :owner, :description, :created_at, :updated_at
+json.url admin_renter_url(admin_renter, format: :json)

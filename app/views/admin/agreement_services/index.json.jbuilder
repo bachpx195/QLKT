@@ -1,0 +1,1 @@
+json.array! @admin_agreement_services, partial: 'admin/agreement_services/admin_agreement_service', as: :admin_agreement_service

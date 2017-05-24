@@ -1,0 +1,26 @@
+vi:
+  activerecord:
+    models:
+      admin/renter: Hợp đồng
+    attributes:
+      admin/renter:
+        name: "Họ và tên"
+        identity_card: "CMND"
+        email: "Email"
+        phone: "Số điện thoại"
+        owner: "Người đại diện"
+        parent_phone: "SĐT liên hệ"
+    errors:
+      models:
+        admin/renter:
+          attributes:
+            name:
+              required: "bắt buộc phải chọn"
+            identity_card:
+              required: "bắt buộc phải chọn"
+            email:
+              invalid: "không đúng định dạng"
+            phone:
+              invalid: "không đúng định dạng"
+            parent_phone:
+              invalid: "không đúng định dạng"

@@ -1,0 +1,35 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover items-table-service aside-table ">
+    <thead>
+    <tr>
+      <th class="text-center">
+        <a class="btn btn-circle btn-icon-only btn-default add-all-selection-service"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+      </th>
+      <th><%= t(:service_name) %></th>
+      <th class="text-center"><%= t(:service_price) %></th>
+      <th class="text-center"><%= t(:service_unit) %></th>
+      <th class="amount hide"></th>
+    </tr>
+    </thead>
+    <tbody class="item-container-service-left">
+    <% if !@admin_services.nil? %>
+      <% @admin_services.each do |admin_service| %>
+        <tr>
+          <td class="text-center">
+            <a class="btn btn-circle btn-icon-only btn-default item-selection-service add-selection-service"><input class="hide" type="checkbox" name="admin_agreement_service[]" value="<%= admin_service.id %>"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+          </td>
+          <td class="service-building-<%= admin_service.id %>"><%= admin_service.name %></td>
+          <td class="text-center"><%= format_money(admin_service.unit_price) %></td>
+          <td class="text-center"><%= admin_service.unit %></td>
+          <td class="amount text-center hide <%= admin_service.id %>">
+            <input type="text" name="admin_agreement_service_amount[<%= admin_service.id %>]" value="1" class="form-control number-format text-center">
+          </td>
+          <td class="stop-service text-center hide <%= admin_service.id %>">
+            <div class='md-checkbox-inline'><div class='md-checkbox'><input type='checkbox' id='checkboxstatus<%= admin_service.id %>'  name='admin_agreement_service_status[<%= admin_service.id %>]' value='1' class='md-check'><label for='checkboxstatus<%= admin_service.id %>'><span></span><span class='check'></span><span class='box'></span></label></div></div>
+          </td>
+        </tr>
+      <% end %>
+    <% end  %>
+    </tbody>
+  </table>
+</div>

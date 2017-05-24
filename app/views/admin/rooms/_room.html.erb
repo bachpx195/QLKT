@@ -1,0 +1,18 @@
+<% @admin_rooms.each do |admin_room| %>
+    <tr class="item-<%= admin_room.id %>">
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_room_path(admin_room), duplicate_url: duplicate_admin_rooms_path(id: admin_room)} %>
+      </td>
+      <td><%= admin_room.building.name %></td>
+      <td><%= admin_room.code %></td>
+      <td><%= admin_room.name %></td>
+      <td><%= format_room_type(admin_room.room_type) %></td>
+      <td class="text-center"><%= admin_room.amount %></td>
+      <td class="text-center"><%= format_money(admin_room.cost) %></td>
+      <td><%= format_room_stt(admin_room.status) %></td>
+      <td><%= admin_room.description %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_room } %>
+      </td>
+    </tr>
+<% end %>

@@ -1,0 +1,9 @@
+<td class="col-md-1"><%= item.config_category.name %></td>
+<td class="col-md-1"><%= item.code %></td>
+<td class="col-md-3"><%= item.value %></td>
+<td class="col-md-6"><%= truncate(item.description, :length => 60) %></td>
+<td class="col-md-2">
+  <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_admin_config_url(item) %>"><i class="icon-pencil"></i></a>
+  <a class="btn green btn-circle btn-icon-only btn-default" data-remote="true" href="<%= duplicate_admin_configs_path(id: item) %>"><i class="fa fa-files-o"></i></a>
+  <%= link_to raw('<i class="fa fa-trash-o"></i>'), item, method: :delete, data: {confirm: t(:delete_confirm)}, class: "btn red btn-circle btn-icon-only btn-default" %>
+</td>

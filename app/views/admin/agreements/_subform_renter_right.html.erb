@@ -1,0 +1,30 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover items-table">
+    <thead>
+    <tr>
+      <th class="text-center">
+        <a class="btn btn-circle btn-icon-only btn-default remove-all-selection"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+      </th>
+      <th>Tên khách thuê</th>
+      <th class="text-center">CMND</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody class="renter-right-container">
+    <%  if defined? @admin_renters_in_agreement %>
+        <% @admin_renters_in_agreement.each do |admin_renter| %>
+            <tr class="renter-item-<%= admin_renter.id %>">
+              <td class="text-center">
+                <a class="btn btn-circle btn-icon-only btn-default item-selection remove-selection"><input class="hide" type="checkbox" name="admin_agreement_renter[]" value="<%= admin_renter.id %>" checked="checked"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+              </td>
+              <td class="renter-item-name-<%= admin_renter.id %>"><%= admin_renter.name %></td>
+              <td class="renter-item-idcard-<%= admin_renter.id %> text-center"><%= admin_renter.identity_card %></td>
+              <td class="text-center">
+                <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_admin_renter_url(admin_renter) %>"><i class="icon-pencil"></i></a>
+              </td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

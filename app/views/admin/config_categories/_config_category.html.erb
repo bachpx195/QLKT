@@ -1,0 +1,7 @@
+<% @admin_config_categories.each do |admin_config_category| %>
+    <tr>
+      <td class="col-md-1"><%= admin_config_category.name %></td>
+      <td class="col-md-3"><%= admin_config_category.value %></td>
+      <td class="col-md-6"><%= truncate(admin_config_category.description, :length => 60) %></td>
+    </tr>
+<% end %>

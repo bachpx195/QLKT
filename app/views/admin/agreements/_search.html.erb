@@ -1,0 +1,47 @@
+<!-- BEGIN FORM-->
+<%= simple_form_for :search, url: admin_agreements_path, :method => :get, :html => {class: 'form-horizontal'} do |f| %>
+    <div class="form-body">
+      <div class="form-group form-md-line-input">
+        <div class="col-md-2">
+          <%= f.text_field :code, placeholder: t(:agreement_code_placeholder), class: 'form-control' %>
+          <div class="form-control-focus"></div>
+        </div>
+        <div class="col-md-3">
+          <select name="search[building]" id="building" class="form-control">
+            <option value="0" selected><%= t(:building_selected) %></option>
+            <% @admin_buildings.each do |building| %>
+                <option value="<%= building.id %>"><%= building.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-control" name="search[room]" id="room"><option value=""><%= t(:room_selected) %></option>
+            <% @admin_rooms.each do |room| %>
+                <option value="<%= room.id %>"><%= room.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <%= f.text_field :owner, placeholder: t(:agreement_renter_placeholder), class: 'form-control select2' %>
+          <div class="form-control-focus"></div>
+        </div>
+        <div class="col-md-2">
+          <select class="form-control" name="search[status]" ><option value=""><%= t(:agreement_status_selected) %></option>
+            <option value="1"><%= t(:agreement_status_valid) %></option>
+            <option value="2"><%= t(:agreement_status_invalid) %></option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-search" aria-hidden="true"></i><%= t(:search)%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<!-- END FORM-->

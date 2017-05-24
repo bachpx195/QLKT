@@ -1,0 +1,1 @@
+json.array! @admin_functions, partial: 'admin_functions/admin_function', as: :admin_function

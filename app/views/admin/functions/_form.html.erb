@@ -1,0 +1,14 @@
+<%= simple_form_for(@admin_function) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :parent %>
+    <%= f.input :name %>
+    <%= f.input :controller %>
+    <%= f.input :description %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

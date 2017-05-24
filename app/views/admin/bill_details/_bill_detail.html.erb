@@ -1,0 +1,13 @@
+<% @admin_bill_details.each do |admin_bill_detail| %>
+    <tr class="text-center">
+      <td><%= admin_bill_detail.bill.code %></td>
+      <td><%= admin_bill_detail.service.name %></td>
+      <td><%= admin_bill_detail.amount %></td>
+      <td><%= admin_bill_detail.unit_price %></td>
+      <td><%= admin_bill_detail.total %></td>
+      <td width="150px"><a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%= edit_admin_bill_detail_url(admin_bill_detail) %>"><i class="icon-pencil"></i></a>
+        <a class="btn green btn-circle btn-icon-only btn-default" data-remote="true" href="<%= duplicate_admin_bill_details_path(id: admin_bill_detail) %>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+        <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_bill_detail, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn red btn-circle btn-icon-only btn-default" %>
+      </td>
+    </tr>
+<% end %>

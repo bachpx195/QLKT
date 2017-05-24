@@ -1,0 +1,17 @@
+vi:
+  activerecord:
+    models:
+      admin/room_device: Thiết bị phòng
+    attributes:
+      admin/room_device:
+        room: "Phòng"
+        name: "Tên thiết bị"
+        amount: "Số lượng"
+        status: "Trạng thái"
+        description: "Mô tả"
+    errors:
+      models:
+        admin/room_device:
+          attributes:
+            room:
+              required: "bắt buộc phải chọn"

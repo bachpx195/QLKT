@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit portlet-datatable bordered">
+      <div class="portlet-title tabbable-line">
+        <div class="caption">
+          <% if @current_screen == Admin::ScreenName::Service  %>
+            <i class="fa fa-cloud font-green"></i>
+          <% elsif @current_screen == Admin::ScreenName::Room  %>
+              <i class="fa fa-bed font-green"></i>
+          <% else %>
+            <i class="icon-share font-green"></i>
+          <% end %>
+          <span class="caption-subject font-green sbold uppercase"><%= title %></span>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+        </div>
+
+        <ul class="nav nav-tabs">
+          <% @admin_buildings.each_with_index do |building, index| %>
+              <li <% if index == 0%>class="active"<% end %>>
+                <a href="#building_tab<%= building.id %>" data-toggle="tab"> <%= building.name %> </a>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="portlet-body">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#excel").click(function () {
+            window.open(this);
+        });
+    });
+</script>

@@ -1,0 +1,309 @@
+<%= simple_form_for(@admin_agreement, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+
+    <ul class="errors"></ul>
+
+    <% if @admin_agreement.room.nil? %>
+        <input type="hidden" id="last_room" value="0">
+    <% else %>
+        <input type="hidden" id="last_room" value="<%= @admin_agreement.room.id %>">
+    <% end %>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_building) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <% if type == Admin::Constants::AJAXFORM %>
+            <select id="building_agreement" class="form-control" disabled>
+              <% if @admin_agreement.room.nil? %>
+                      <option value="<%= @admin_buildings.id %>"><%= @admin_buildings.name %></option>
+              <% else %>
+                  <option value="0"><%= t(:building_selected) %></option>
+                  <% @admin_buildings.each do |building| %>
+                      <option value="<%= building.id %>"
+                              <% if (building.id == @admin_agreement.room.building.id) %> selected
+                              <% end %>><%= building.name %></option>
+                  <% end %>
+              <% end %>
+            </select>
+        <% else %>
+            <select id="building_agreement" class="form-control">
+              <% if @admin_agreement.room.nil? %>
+                  <option value="0" selected><%= t(:building_selected) %></option>
+                  <% @admin_buildings.each do |building| %>
+                      <option value="<%= building.id %>"><%= building.name %></option>
+                  <% end %>
+              <% else %>
+                  <option value="0"><%= t(:building_selected) %></option>
+                  <% @admin_buildings.each do |building| %>
+                      <option value="<%= building.id %>"
+                              <% if (building.id == @admin_agreement.room.building.id) %> selected
+                              <% end %>><%= building.name %></option>
+                  <% end %>
+              <% end %>
+            </select>
+        <% end %>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_room) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <% if type == Admin::Constants::AJAXFORM %>
+            <%= f.association :room, disabled: true, :collection => @admin_rooms, :label => false, :label_method => lambda { |room| "#{room.name} - #{room.amount} - #{format_room_type(room.room_type, true)} - #{format_money(room.cost, true)}" }, input_html: {class: 'form-control', id: 'room_agreement'}, wrapper: false, :selected => (@admin_agreement.room.nil?) ? 0 : @admin_agreement.room.id %>
+        <% else %>
+            <%= f.association :room, :collection => @admin_rooms, :label => false, :label_method => lambda { |room| "#{room.name} - #{room.amount} - #{format_room_type(room.room_type, true)} - #{format_money(room.cost, true)}" }, :include_blank => t(:room_selected), input_html: {class: 'form-control', id: 'room_agreement'}, wrapper: false, :selected => (@admin_agreement.room.nil?) ? 0 : @admin_agreement.room.id %>
+        <% end %>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_owner) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <%= f.association :owner, :collection => @admin_renters_in_agreement, :label_method => :name, :value_method => :id, :include_blank => t(:agreement_owner_selected), :label => false, input_html: {class: 'form-control'}, wrapper: false, :selected => (@admin_agreement.owner.nil?) ? 0 : @admin_agreement.owner.id %>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_month_pre_payment) %></label>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-5">
+            <%= f.select :month_pre_payment, month_prepayment_collection(), {}, class: "form-control", id: 'month_pre_payment' %>
+            <div class="form-control-focus"></div>
+          </div>
+          <label class="col-md-2 control-label"><%= t(:agreement_month_pre_payment_label) %></label>
+          <div class="col-md-5">
+            <%= f.input_field :pre_payment, as: :string, class: 'form-control number-format', readonly: true, id: 'pre_payment' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_duration) %></label>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-9">
+            <%= f.input_field :duration, as: :string, class: 'form-control number-format', id: "durationMonth", placeholder: t(:agreement_duration_placeholder), value: f.object.duration || '6' %>
+            <div class="form-control-focus"></div>
+          </div>
+          <div class="col-md-3">
+            <label class="control-label left"><%= t(:agreement_duration_label) %></label>
+          </div>
+        </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_start_date) %></label>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-5">
+            <%= f.text_field :start_date, as: :datepicker, class: 'form-control date-picker', id: "startDate", placeholder: t(:agreement_start_date_placeholder), 'data-date-format': 'dd/mm/yyyy', value: convert_datetime(f.object.start_date) || "#{convert_datetime(Time.now)}" %>
+          </div>
+          <label class="col-md-2 control-label"><%= t(:agreement_end_date) %></label>
+          <div class="col-md-5">
+            <%= f.text_field :end_date, label: false, id: "endDate", class: 'form-control', readonly: true, value: convert_datetime(f.object.end_date) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_down_payment) %>
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <%= f.input_field :down_payment, as: :string, class: 'form-control number-format', placeholder: t(:agreement_down_payment_placeholder) %>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_billing_cycle) %></label>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-7">
+            <%= f.input_field :billing_cycle, as: :string, class: 'form-control number-format', value: f.object.billing_cycle || '1' %>
+            <div class="form-control-focus"></div>
+          </div>
+          <div class="col-md-5">
+            <label class="control-label left"><%= t(:agreement_billing_cycle_label) %></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:agreement_out_date) %> :</label>
+      <div class="col-md-4">
+        <%= f.input_field :out_date, as: :date, class: 'form-control', placeholder: t(:agreement_out_date_placeholder), 'data-date-format': 'dd/mm/yyyy', value: convert_datetime(f.object.out_date), html5: true %>
+        <div class="form-control-focus"></div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:agreement_status) %> :</label>
+      <div class="col-md-4">
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input type="radio" id="radio1" name="admin_agreement[status]" class="md-radiobtn" value="1" <%= f.object.status == Admin::Constants::AGREEMENT_STATUS_VALID ? "checked=\"checked\"" : "" %> >
+            <label for="radio1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:agreement_status_valid) %>
+            </label>
+          </div>
+          <div class="md-radio">
+            <input type="radio" id="radio2" name="admin_agreement[status]" class="md-radiobtn" value="2" <%= f.object.status == Admin::Constants::AGREEMENT_STATUS_INVALID ? "checked=\"checked\"" : "" %> >
+            <label for="radio2">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> <%= t(:agreement_status_invalid) %>
+            </label>
+          </div>
+        </div>
+        <div class="form-control-focus"></div>
+      </div>
+    </div>
+    <div class="tabbable-line">
+      <ul class="nav nav-tabs ">
+        <li class="active">
+          <a href="#tab1" data-toggle="tab"><%= t(:agreement_renter_tab) %></a>
+        </li>
+        <li>
+          <a href="#tab2" data-toggle="tab"><%= t(:agreement_service_tab) %></a>
+        </li>
+        <li class="last-tab">
+          <a data-remote="true" href="<%= new_ajax_form_admin_renters_url %>" class="btn btn-circle btn-icon-only green">
+            <i class="fa fa-plus"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <%= render 'subform_renter' %>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <%= render 'subform_service' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-9">
+          <span class="font-red-flamingo" id="error-people-in-room"></span>
+        </div>
+        <div class="col-md-3 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
+            <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy
+          </button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<script>
+    $(document).ready(function () {
+        $("#show-main-modal").click(function () {
+            $("#main-modal").modal("show");
+        });
+
+        $("#building_agreement").change(function () {
+            $.ajax({
+                type: "GET",
+                url: '/admin/rooms.json?building_id=' + $("#building_agreement").val() + '&is_agreement=1&last_room=' + $("#last_room").val(),
+                data: JSON.stringify({
+                    building_id: $("#building_agreement").val(),
+                    is_agreement: 1,
+                    last_room: $("#last_room").val()
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: success,
+                error: error
+            });
+
+            function success(data, status) {
+                $("#room_agreement").html("");
+                $("#room_agreement").append("<option value='0'>-- Chọn phòng trọ --</option>");
+                data.forEach(appendOption)
+            }
+
+            function appendOption(item, index, arr) {
+                var htmlOption = "<option value=" + item.id + ">" + item.name + " - " + item.amount + " - " + room_type(item.room_type) + " - " + format_money(item.cost) + "</option>"
+                $("#room_agreement").append(htmlOption);
+            }
+
+            function error() {
+                console.log('Lỗi lấy dữ liệu phòng theo tòa nhà');
+            }
+
+            function room_type(type) {
+                if (type == 0) {
+                    return "ĐƠN";
+                }
+                else if (type == 1) {
+                    return "KTX";
+                }
+            }
+
+            function room_type(type) {
+                if (type == 0) {
+                    return "ĐƠN";
+                }
+                else if (type == 1) {
+                    return "KTX";
+                }
+            }
+        });
+
+        function format_money(cost, has_unit = true) {
+            var price = cost.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+            if (cost.toString() != '') {
+                if (has_unit) {
+                    price = price + ' VNĐ';
+                }
+                else {
+                    price = price;
+                }
+            }
+            return price;
+        }
+
+        $("#room_agreement").change(function () {
+            caculatePrePayment();
+        });
+
+        $("#month_pre_payment").change(function () {
+            caculatePrePayment();
+        });
+
+        function caculatePrePayment() {
+            var room_name = $("#room_agreement option:selected").text();
+            if (room_name.indexOf(" - ") > 0) {
+                var strs = room_name.split(" - ");
+                if (strs.length == 4) {
+                    var month = $("#month_pre_payment").val();
+                    var money = parseInt(month) * parseInt(strs[3].replace(/\./g, ''));
+                    $('#pre_payment').val(format_money(money, false));
+                }
+                else {
+                    $('#pre_payment').val(0);
+                }
+            }
+            else {
+                $('#pre_payment').val(0);
+            }
+        }
+
+
+        $("#startDate, #durationMonth").change(function () {
+            // console.log("event ok");
+            var durationMonth = $('#durationMonth').val();
+            if (durationMonth != "") {
+                // console.log("null ok");
+                var startDate = $('#startDate').val();
+                var dt1 = parseInt(startDate.substring(0, 2));
+                // console.log(dt1);
+                var mon1 = parseInt(startDate.substring(3, 5)) - 1;
+                // console.log(mon1);
+                var yr1 = parseInt(startDate.substring(6, 10));
+                // console.log(yr1);
+                var time = new Date(yr1, mon1, dt1);
+                time.setMonth(time.getMonth() + parseInt(durationMonth));
+                var endDate = time.getDate() + "/" + (time.getMonth() + 1) + "/" + time.getFullYear();
+                // console.log(endDate);
+                $("#endDate").val(endDate);
+            } else {
+                $("#endDate").val("");
+            }
+            ;
+        });
+    });
+</script>

@@ -1,0 +1,1 @@
+json.partial! "admin_payment_bills/admin_payment_bill", admin_payment_bill: @admin_payment_bill

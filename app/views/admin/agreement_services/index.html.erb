@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Agreement Services</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Agreement</th>
+      <th>Service</th>
+      <th>Amount perservice</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_agreement_services.each do |admin_agreement_service| %>
+      <tr>
+        <td><%= admin_agreement_service.user %></td>
+        <td><%= admin_agreement_service.agreement %></td>
+        <td><%= admin_agreement_service.service %></td>
+        <td><%= admin_agreement_service.amount_perservice %></td>
+        <td><%= link_to 'Show', admin_agreement_service %></td>
+        <td><%= link_to 'Edit', edit_admin_agreement_service_path(admin_agreement_service) %></td>
+        <td><%= link_to 'Destroy', admin_agreement_service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Agreement Service', new_admin_agreement_service_path %>

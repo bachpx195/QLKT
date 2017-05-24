@@ -1,0 +1,18 @@
+
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_agreement_url(item), duplicate_url: duplicate_admin_agreements_path(id: item)} %>
+      </td>
+      <td><%= item.code %></td>
+      <td><%= item.room.building.name %></td>
+      <td><%= item.room.name %></td>
+      <td><%= format_room_type(item.room.room_type) %></td>
+      <td><%= item.owner.name %></td>
+      <td class="text-center"><%= item.start_date.strftime("%d/%m/%Y") %></td>
+      <td class="text-center"><%= format_month(item.duration) %></td>
+      <td class="text-center"><%= format_money(item.down_payment) %></td>
+      <td class="text-center"><%= item.month_pre_payment %></td>
+      <td class="text-center"><%= format_money(item.pre_payment) %></td>
+      <td class="text-center"><%= format_stt(item.status) %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: item } %>
+      </td>

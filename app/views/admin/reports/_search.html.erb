@@ -1,0 +1,84 @@
+<%= simple_form_for :search, url: admin_reports_path, :method => :get, :html => {class: 'form-horizontal', id: "searchForm"} do |f| %>
+    <div class="form-body">
+      <div class="form-group form-md-line-input">
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label"><%= t(:electricity_water_building) %></label>
+            <div class="col-md-8">
+              <select id="building_search" name ="search[building]" class="form-control">
+                <option value="0"><%= t(:building_selected) %></option>
+                <% @admin_buildings.each do |building| %>
+                    <option value="<%= building.id %>" <% if @building == building.id.to_s %> selected <% end%>><%= building.name %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label">Từ tháng</label>
+            <div class="col-md-8">
+              <%= f.text_field :month_year_from, as: :datepicker,  id: 'month_year_from',class: 'form-control mask_date date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy' ,value: @month_year_from%>
+              <div class="form-control-focus"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label class="col-md-4 control-label">Đến tháng</label>
+            <div class="col-md-8">
+              <%= f.text_field :month_year_end, as: :datepicker, id: 'month_year_end',class: 'form-control mask_date date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy', value: @month_year_end %>
+              <div class="form-control-focus"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!--<div class="col-md-3 container-fluid ">-->
+        <!--<select name="month" class="form-control">-->
+        <!--<option value="">&#45;&#45;Chọn tháng&#45;&#45;</option>-->
+        <!--<option value="1">Tháng1</option>-->
+        <!--<option value="2">Tháng2</option>-->
+        <!--<option value="3">Tháng3</option>-->
+        <!--<option value="4">Tháng4</option>-->
+        <!--<option value="5">Tháng5</option>-->
+        <!--<option value="6">Tháng6</option>-->
+        <!--<option value="7">Tháng7</option>-->
+        <!--<option value="8">Tháng8</option>-->
+        <!--<option value="9">Tháng9</option>-->
+        <!--<option value="10">Tháng10</option>-->
+        <!--<option value="11">Tháng11</option>-->
+        <!--<option value="12">Tháng12</option>-->
+        <!--</select>-->
+        <!--</div>-->
+<% end %>
+<script>
+  $(document).ready(function(){
+    // Check change to submit form.
+    var monthYearFrom = $(this).val()
+    $("#month_year_from").change(function(){
+      if (monthYearFrom != '' && monthYearFrom != $(this).val()) {
+        // Month/Year Validate
+        $("#searchForm").submit()
+      }
+      monthYearFrom = $(this).val()
+    });
+    var monthYearEnd = $(this).val()
+    $("#month_year_end").change(function(){
+      if (monthYearEnd != '' && monthYearEnd != $(this).val()) {
+        // Month/Year Validate
+        $("#searchForm").submit()
+      }
+      monthYearEnd = $(this).val()
+    });
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+      });
+      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+    }
+  });
+</script>

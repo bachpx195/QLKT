@@ -1,0 +1,19 @@
+vi:
+  activerecord:
+    models:
+      admin/electricity_water: Điện nước
+    attributes:
+      admin/electricity_water:
+        room: "Phòng"
+        start_electricity: "Số điện đầu"
+        start_water: "Số nước đầu"
+        end_electricity: "Số điện cuối"
+        end_water: "Số nước cuối"
+        total_electricity: "Số điện tiêu thụ"
+        total_water: "Số nước tiêu thụ"
+    errors:
+      models:
+        admin/electricity_water:
+          attributes:
+            room:
+              required: "bắt buộc phải chọn"

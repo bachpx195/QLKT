@@ -1,0 +1,13 @@
+vi:
+  activerecord:
+    models:
+      admin/building: Khu/dãy trọ
+    attributes:
+      admin/building:
+        name: "Tên khu/dãy trọ"
+    errors:
+      models:
+        admin/building:
+          attributes:
+            name:
+              required: "bắt buộc phải chọn"

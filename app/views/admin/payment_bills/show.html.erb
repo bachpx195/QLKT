@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= t(:payment_bill_user) %>:</strong>
+  <%= @admin_payment_bill.user %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_code) %>:</strong>
+  <%= @admin_payment_bill.code %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_name) %>:</strong>
+  <%= @admin_payment_bill.name %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_payment_date) %>:</strong>
+  <%= @admin_payment_bill.payment_date %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_payment_type) %>:</strong>
+  <%= @admin_payment_bill.payment_type %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_amount) %>:</strong>
+  <%= @admin_payment_bill.amount %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_unit) %>:</strong>
+  <%= @admin_payment_bill.unit %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_unit_price) %>:</strong>
+  <%= @admin_payment_bill.unit_price %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_payment) %>:</strong>
+  <%= @admin_payment_bill.payment %>
+</p>
+
+<p>
+  <strong><%= t(:payment_bill_description) %>:</strong>
+  <%= @admin_payment_bill.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_payment_bill_path(@admin_payment_bill) %> |
+<%= link_to 'Back', admin_payment_bills_path %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Agreement Renters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Agreement</th>
+      <th>Renter</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_agreement_renters.each do |admin_agreement_renter| %>
+      <tr>
+        <td><%= admin_agreement_renter.user %></td>
+        <td><%= admin_agreement_renter.agreement %></td>
+        <td><%= admin_agreement_renter.renter %></td>
+        <td><%= link_to 'Show', admin_agreement_renter %></td>
+        <td><%= link_to 'Edit', edit_admin_agreement_renter_path(admin_agreement_renter) %></td>
+        <td><%= link_to 'Destroy', admin_agreement_renter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Agreement Renter', new_admin_agreement_renter_path %>

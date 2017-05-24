@@ -1,0 +1,88 @@
+<%= simple_form_for(@admin_bill, remote: true, :html => { class: 'form-horizontal'} ) do |f| %>
+    <%= f.error_notification %>
+
+    <ul class="errors"></ul>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_agreement)%></label>
+      <div class="col-md-4">
+        <%= f.association :agreement,label: false,:prompt => t(:bill_placeholder_agreement), class: 'bg-maxlength form-control', wrapper: false %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_payment_amount)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :payment_amount, class: 'bg-maxlength form-control', :placeholder => t(:bill_placeholder_payment_amount), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_code)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :code, class: 'bg-maxlength form-control', :placeholder => t(:bill_code), maxlength: 30,:value => "@product.id", :readonly => true %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_debt_amount)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :debt_amount, class: 'bg-maxlength form-control', :placeholder => t(:bill_placeholder_debt_amount), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_month)+"/"+t(:bill_year)%></label>
+      <div class="col-md-4">
+        <%= f.text_field :month_year, as: :datepicker, class: 'form-control mask_date date-picker', :placeholder => t(:bill_placeholder_year), 'data-date-format': 'mm/yyyy' %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_other_cost)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :other_cost, class: 'bg-maxlength form-control', :placeholder => t(:bill_placeholder_other_cost), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_month)%></label>
+      <div class="col-md-4">
+
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_total)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :total_amount, class: 'bg-maxlength form-control', :placeholder => t(:bill_placeholder_total_amount), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_date)%></label>
+      <div class="col-md-4">
+        <%= f.text_field :bill_date, as: :datepicker, class: 'form-control mask_date date-picker', :placeholder => t(:bill_placeholder_bill_date), 'data-date-format': 'dd/mm/yyyy', value: convert_datetime(f.object.bill_date) %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_remain_amount)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :remain_amount, class: 'bg-maxlength form-control', :placeholder => t(:bill_placeholder_remain_amount), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+
+    <div class="form-group form-md-line-input">
+
+      <label class="col-md-2 control-label"><%= t(:bill_description)%></label>
+      <div class="col-md-4">
+        <%= f.input_field :description, as: :text, class: 'bg-maxlength form-control autosizeme',:placeholder => t(:bill_placeholder_description), maxlength: 500 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy</button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+<% end %>

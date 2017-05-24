@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_room_device.user %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @admin_room_device.room %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_room_device.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @admin_room_device.amount %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @admin_room_device.status %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_room_device.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_room_device_path(@admin_room_device) %> |
+<%= link_to 'Back', admin_room_devices_path %>

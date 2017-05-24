@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  building: one
+  code: MyString
+  name: MyString
+  type: 1
+  amount: 1
+  cost: 1
+  status: 1
+  description: MyString
+
+two:
+  user: two
+  building: two
+  code: MyString
+  name: MyString
+  type: 1
+  amount: 1
+  cost: 1
+  status: 1
+  description: MyString

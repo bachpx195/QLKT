@@ -1,0 +1,1 @@
+json.partial! "admin_feedbacks/admin_feedback", admin_feedback: @admin_feedback

@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+wb.styles do |style|
+  format_cell_header = style.add_style(bg_color: "D4AC0D", border: Axlsx::STYLE_THIN_BORDER)
+  format_cell = style.add_style(border: Axlsx::STYLE_THIN_BORDER)
+  date_cell = style.add_style(format_code: "dd/mm/yyyy", border: Axlsx::STYLE_THIN_BORDER)
+
+  wb.add_worksheet(name: "Khách thuê") do |sheet|
+	sheet.add_row ["Mã khách thuê","Tên khách thuê", "Ngày sinh", "Giới tính","Số CMND", "Nơi cấp", "SĐT", "Email", "Địa chỉ", "Nghề nghiệp", "Trường", "Họ tên bố(mẹ)", "SĐT liên hệ", "Quê quán", "Trạng thái đăng kí tạm trú", "Ghi chú", "Đại diện phòng","Ngày tạo", "Ngày cập nhật"],
+	style: [format_cell_header, format_cell_header,format_cell_header,format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header, format_cell_header]
+    @export.each do |e|
+     sheet.add_row [e.code, e.name, e.birthday, e.sex, e.identity_card, e.issued_card, e.phone, e.email, e.address, e.career, e.university, e.parent_name, e.parent_phone, e.hometown, e.temporary_registration, e.description, e.owner, e.created_at, e.updated_at], style: [format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell, format_cell,format_cell, format_cell, format_cell,format_cell, format_cell, format_cell, format_cell, format_cell]
+    end
+  end
+end

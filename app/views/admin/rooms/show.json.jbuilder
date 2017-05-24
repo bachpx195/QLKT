@@ -1,0 +1,1 @@
+json.partial! "admin/rooms/admin_room", admin_room: @admin_room

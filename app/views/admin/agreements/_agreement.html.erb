@@ -1,0 +1,21 @@
+<% @admin_agreements.each do |admin_agreement| %>
+    <tr>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_agreement_url(admin_agreement), duplicate_url: duplicate_admin_agreements_path(id: admin_agreement)} %>
+      </td>
+      <td><%= admin_agreement.code %></td>
+      <td><%= admin_agreement.room.building.name %></td>
+      <td><%= admin_agreement.room.name %></td>
+      <td><%= format_room_type(admin_agreement.room.room_type) %></td>
+      <td><%= admin_agreement.owner.name %></td>
+      <td class="text-center"><%= admin_agreement.start_date.strftime("%d/%m/%Y") %></td>
+      <td class="text-center"><%= format_month(admin_agreement.duration) %></td>
+      <td class="text-center"><%= format_money(admin_agreement.down_payment) %></td>
+      <td class="text-center"><%= admin_agreement.month_pre_payment %></td>
+      <td class="text-center"><%= format_money(admin_agreement.pre_payment) %></td>
+      <td class="text-center"><%= format_stt(admin_agreement.status) %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_agreement } %>
+      </td>
+    </tr>
+<% end %>

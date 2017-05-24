@@ -1,0 +1,13 @@
+<% @admin_groups.each do |admin_group| %>
+    <tr>
+      <td><%= admin_group.name %></td>
+      <td><%= admin_group.level %></td>
+      <td><%= admin_group.description %></td>
+
+      <td>
+        <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_admin_group_url(admin_group) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:edit)%>"><i class="icon-pencil"></i></a>
+        <a class="btn green btn-circle btn-icon-only btn-default popovers" href="#" data-container="body" data-trigger="hover" data-placement="top" data-content="<%= t(:copy)%>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+        <%= link_to raw('<i class="fa fa-trash-o"></i>'), admin_group, method: :delete, data: { confirm: 'Are you sure?', trigger: 'hover', placement: 'top', content: t(:delete) }, class: "btn red btn-circle btn-icon-only btn-default popovers" %>
+      </td>
+    </tr>
+<% end %>

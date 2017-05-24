@@ -1,0 +1,16 @@
+<% building.services.each do |admin_service| %>
+    <tr class="item-<%= admin_service.id %>">
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: {edit_url: edit_admin_service_url(admin_service)} %>
+      </td>
+      <td><%= admin_service.name %></td>
+      <td class="text-center"><%= format_money(admin_service.unit_price) %></td>
+      <td class="text-center"><%= admin_service.unit %></td>
+      <td><%= admin_service.description %></td>
+      <td class="text-center">
+        <% if (admin_service.service_type != 1) %>
+            <%= render partial: 'shared/action_buttons', locals: {delete_url: admin_service} %>
+        <% end %>
+      </td>
+    </tr>
+<% end %>

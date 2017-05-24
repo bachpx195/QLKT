@@ -1,0 +1,24 @@
+<% @admin_renters.each do |admin_renter| %>
+    <tr class="item-<%= admin_renter.id %>">
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_renter_url(admin_renter), duplicate_url: duplicate_admin_renters_path(id: admin_renter)} %>
+      </td>
+      <td class="text-center"><%= admin_renter.code %></td>
+      <td><%= admin_renter.name %></td>
+      <td class="text-center"><%= convert_datetime(admin_renter.birthday) %></td>
+      <td class="text-center"><%= convert_sex(admin_renter.sex) %></td>
+      <td><%= admin_renter.identity_card %></td>
+      <td><%= admin_renter.phone %></td>
+      <td><%= admin_renter.address %></td>
+      <td class="text-center"><%= convert_career(admin_renter.career) %></td>
+      <td class="text-center"><%= convert_temporary_registration(admin_renter.temporary_registration) %></td>
+      <td><%= admin_renter.parent_name %></td>
+      <td><%= admin_renter.parent_phone %></td>
+      <td class="text-center"><%= convert_owner(admin_renter.owner) %></td>
+      <td class="text-center"><%= convert_available_status(admin_renter.available_status) %></td>
+      <td><%= admin_renter.description %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_renter } %>
+      </td>
+    </tr>
+<% end %>

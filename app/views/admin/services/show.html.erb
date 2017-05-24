@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_service.user %>
+</p>
+
+<p>
+  <strong>Building:</strong>
+  <%= @admin_service.building %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_service.name %>
+</p>
+
+<p>
+  <strong>Unit:</strong>
+  <%= @admin_service.unit %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @admin_service.unit_price %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_service.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_service_path(@admin_service) %> |
+<%= link_to 'Back', admin_services_path %>

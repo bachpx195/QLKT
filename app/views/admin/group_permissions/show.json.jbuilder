@@ -1,0 +1,1 @@
+json.partial! "admin_group_permissions/admin_group_permission", admin_group_permission: @admin_group_permission

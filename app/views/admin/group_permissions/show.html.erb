@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @admin_group_permission.group %>
+</p>
+
+<p>
+  <strong>Function:</strong>
+  <%= @admin_group_permission.function %>
+</p>
+
+<p>
+  <strong>Permission:</strong>
+  <%= @admin_group_permission.permission %>
+</p>
+
+<%= link_to 'Edit', edit_admin_group_permission_path(@admin_group_permission) %> |
+<%= link_to 'Back', admin_group_permissions_path %>

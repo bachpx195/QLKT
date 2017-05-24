@@ -1,0 +1,46 @@
+<%= simple_form_for(@admin_bill_detail, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+    <ul class="errors"></ul>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_details_unit_price) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :unit_price, class: 'bg-maxlength form-control', :placeholder => t(:bill_details_placeholder_unit_price), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_details_bill) %></label>
+      <div class="col-md-4">
+        <%= f.association :bill,label: false,:prompt => t(:bill_details_placeholder_bill), class: 'bg-maxlength form-control', wrapper: false %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_details_amount) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :amount, class: 'bg-maxlength form-control', :placeholder => t(:bill_details_placeholder_amount), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label"><%= t(:bill_details_service) %></label>
+      <div class="col-md-4">
+        <%= f.association :service,label: false,:prompt => t(:bill_details_placeholder_service), class: 'bg-maxlength form-control', wrapper: false %>
+        <div class="form-control-focus"> </div>
+      </div>
+      <label class="col-md-2 control-label"><%= t(:bill_details_total) %></label>
+      <div class="col-md-4">
+        <%= f.input_field :total, class: 'bg-maxlength form-control', :placeholder => t(:bill_details_placeholder_total), maxlength: 30 %>
+        <div class="form-control-focus"> </div>
+      </div>
+    </div>
+
+    <div class="form-actions margin-top-10">
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy</button>
+          <%= f.button :button, class: 'btn green' do %>
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

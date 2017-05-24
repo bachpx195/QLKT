@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit portlet-datatable bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-settings font-green"></i>
+          <span class="caption-subject font-green sbold uppercase"><%= title %></span>
+        </div>
+
+        <div class="actions">
+          <div class="btn-group btn-group-devided" data-toggle="buttons">
+            <% if defined? export_bills_url %>
+              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= export_bills_url %>"><i class="fa fa-print"></i>Xuất tất cả</a>
+            <% end %>
+            <% if defined? new_url %>
+              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= new_url %>"><i class="fa fa-plus"></i>Thêm</a>
+            <% end %>
+            <% if defined? filter_url %>
+              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= filter_url %>"><i class="fa fa-plus"></i>Lọc</a>
+            <% end %>
+            <% if defined? search_url %>
+              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= search_url %>"><i class="fa fa-search"></i>Tìm kiếm</a>
+            <% end %>
+            <% if defined? export_url %>
+              <a id="excel" class="btn green btn-outline btn-circle" href="<%= export_url %>"><i class="fa fa-file-excel-o"></i>Excel</a>
+            <% end %>
+          </div>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#excel").click(function () {
+            window.open(this);
+        });
+    });
+</script>

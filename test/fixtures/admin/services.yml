@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  building: one
+  name: MyString
+  unit: 1
+  unit_price: 1
+  description: MyString
+
+two:
+  user: two
+  building: two
+  name: MyString
+  unit: 1
+  unit_price: 1
+  description: MyString

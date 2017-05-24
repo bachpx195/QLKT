@@ -1,0 +1,1 @@
+json.partial! "admin_configs/admin_config", admin_config: @admin_config

@@ -1,0 +1,20 @@
+<% @admin_payment_bills.each do |admin_payment_bill| %>
+    <tr class="item-<%= admin_payment_bill.id %>">
+      <td>
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_admin_payment_bill_url(admin_payment_bill), duplicate_url: duplicate_admin_payment_bills_path(id: admin_payment_bill)} %>
+      </td>
+      <td><%= admin_payment_bill.building_name %></td>
+      <td class="text-center"><%= admin_payment_bill.code %></td>
+      <td><%= admin_payment_bill.name %></td>
+      <td class="text-center"><%= format_date_ddMMyyy(admin_payment_bill.payment_date) %></td>
+      <td><%= convert_payment_type(admin_payment_bill.payment_type) %></td>
+      <td class="text-center"><%= admin_payment_bill.amount %></td>
+      <td class="text-center"><%= admin_payment_bill.unit %></td>
+      <td class="text-center"><%= format_money(admin_payment_bill.unit_price) %></td>
+      <td class="text-center"><%= format_money(admin_payment_bill.payment) %></td>
+      <td><%= admin_payment_bill.description %></td>
+      <td>
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: admin_payment_bill } %>
+      </td>
+    </tr>
+<% end %>

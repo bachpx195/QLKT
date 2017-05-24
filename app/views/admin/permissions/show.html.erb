@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_permission.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @admin_permission.value %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @admin_permission.description %>
+</p>
+
+<%= link_to 'Edit', edit_admin_permission_path(@admin_permission) %> |
+<%= link_to 'Back', admin_permissions_path %>

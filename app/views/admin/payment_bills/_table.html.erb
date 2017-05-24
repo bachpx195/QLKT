@@ -1,0 +1,33 @@
+<%= render('search') %>
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th class="text-center"><%= t(:payment_bill_building) %></th>
+      <th class="text-center"><%= t(:payment_bill_code) %></th>
+      <th class="text-center"><%= t(:payment_bill_name) %></th>
+      <th class="text-center"><%= t(:payment_bill_payment_date) %></th>
+      <th class="text-center"><%= t(:payment_bill_payment_type) %></th>
+      <th class="text-center"><%= t(:payment_bill_amount) %></th>
+      <th class="text-center"><%= t(:payment_bill_unit) %></th>
+      <th class="text-center"><%= t(:payment_bill_unit_price) %></th>
+      <th class="text-center"><%= t(:payment_bill_payment) %></th>
+      <th class="text-center"><%= t(:payment_bill_description) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody class="item-container">
+    <%= render('payment_bill') %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_payment_bills %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_payment_bills %>
+  </div>
+</div>

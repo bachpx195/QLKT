@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_electricity_water.user %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @admin_electricity_water.room %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @admin_electricity_water.year %>
+</p>
+
+<p>
+  <strong>Month:</strong>
+  <%= @admin_electricity_water.month %>
+</p>
+
+<p>
+  <strong>Start electricity:</strong>
+  <%= @admin_electricity_water.start_electricity %>
+</p>
+
+<p>
+  <strong>End electricity:</strong>
+  <%= @admin_electricity_water.end_electricity %>
+</p>
+
+<p>
+  <strong>Total electricity:</strong>
+  <%= @admin_electricity_water.total_electricity %>
+</p>
+
+<p>
+  <strong>Start water:</strong>
+  <%= @admin_electricity_water.start_water %>
+</p>
+
+<p>
+  <strong>End water:</strong>
+  <%= @admin_electricity_water.end_water %>
+</p>
+
+<p>
+  <strong>Total water:</strong>
+  <%= @admin_electricity_water.total_water %>
+</p>
+
+<%= link_to 'Edit', edit_admin_electricity_water_path(@admin_electricity_water) %> |
+<%= link_to 'Back', admin_electricity_waters_path %>

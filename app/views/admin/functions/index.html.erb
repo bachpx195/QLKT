@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Functions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Name</th>
+      <th>Controller</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_functions.each do |admin_function| %>
+      <tr>
+        <td><%= admin_function.parent %></td>
+        <td><%= admin_function.name %></td>
+        <td><%= admin_function.controller %></td>
+        <td><%= admin_function.description %></td>
+        <td><%= link_to 'Show', admin_function %></td>
+        <td><%= link_to 'Edit', edit_admin_function_path(admin_function) %></td>
+        <td><%= link_to 'Destroy', admin_function, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Function', new_admin_function_path %>

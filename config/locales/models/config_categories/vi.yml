@@ -1,0 +1,16 @@
+vi:
+  activerecord:
+    models:
+      admin/config_category: Danh mục cấu hình
+    attributes:
+      admin/config_category:
+        name: "Mã danh mục"
+        value: "Tên danh mục"
+    errors:
+      models:
+        admin/config_category:
+          attributes:
+            name:
+              required: "bắt buộc phải chọn"
+            value:
+              required: "bắt buộc phải chọn"

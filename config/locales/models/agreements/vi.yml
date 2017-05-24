@@ -1,0 +1,22 @@
+vi:
+  activerecord:
+    models:
+      admin/agreement: Hợp đồng
+    attributes:
+      admin/agreement:
+        building: "Khu/dãy trọ"
+        room: "Phòng"
+        owner: "Người đại diện"
+        down_payment: "Đặt cọc"
+    errors:
+      models:
+        admin/agreement:
+          attributes:
+            building:
+              required: "bắt buộc phải chọn"
+            room:
+              required: "bắt buộc phải chọn"
+            owner:
+              required: "bắt buộc phải chọn"
+            down_payment:
+              required: "bắt buộc phải chọn"

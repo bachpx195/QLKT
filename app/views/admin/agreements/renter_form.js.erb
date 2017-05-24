@@ -1,0 +1,2 @@
+$("#main-modal").html("<%= j(render partial: 'admin/renters/form', layout: 'shared/modal', locals: { type: Admin::Constants::AJAXFORM }) %>");
+$("#main-modal").modal("show");

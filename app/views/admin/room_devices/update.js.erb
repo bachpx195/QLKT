@@ -1,0 +1,5 @@
+<% if @type == Admin::Constants::AJAXFORM.to_s %>
+  <%= render 'shared/second_form_save', item: @admin_room_device, item_render: 'room_device_updated', edit: true %>
+<% else %>
+  <%= render 'shared/created', item: @admin_room_device, item_render: 'table' %>
+<% end %>

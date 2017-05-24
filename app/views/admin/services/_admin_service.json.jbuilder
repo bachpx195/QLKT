@@ -1,0 +1,2 @@
+json.extract! admin_service, :id, :user_id, :building_id, :name, :unit, :unit_price, :description, :code, :service_type, :created_at, :updated_at
+json.url admin_service_url(admin_service, format: :json)

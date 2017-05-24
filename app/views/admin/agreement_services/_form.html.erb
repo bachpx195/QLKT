@@ -1,0 +1,14 @@
+<%= simple_form_for(@admin_agreement_service) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.association :agreement %>
+    <%= f.association :service %>
+    <%= f.input :amount_perservice %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

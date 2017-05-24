@@ -1,0 +1,17 @@
+vi:
+  # will_paginate
+  will_paginate:
+    next_label: Tiếp theo &#8594;
+    page_entries_info:
+      multi_page: Hiển thị %{from} - %{to} trong tổng số %{count} bản ghi.
+      multi_page_html: Hiển thị <b>%{from}&nbsp;-&nbsp;%{to}</b> trong tổng số <b>%{count}</b> bản ghi.
+      single_page:
+        one: Hiển thị 1 bản ghi.
+        other: Hiển thị tất cả %{count} bản ghi.
+        zero: Không có bản ghi nào.
+      single_page_html:
+        one: Hiển thị <b>1</b> bản ghi.
+        other: Hiển thị tất cả <b>&nbsp;%{count}</b> bản ghi.
+        zero: Không có bản ghi nào.
+    page_gap: "&hellip;"
+    previous_label: "&#8592; Trước đó"

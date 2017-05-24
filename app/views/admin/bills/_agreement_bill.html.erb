@@ -1,0 +1,32 @@
+<% @admin_agreements.each do |admin_agreement| %>
+    <tr>
+        <td class="text-center"><%= format_month_year(admin_agreement.month, admin_agreement.year) %></td>
+        <td class="text-center"><%= admin_agreement.room.building.name %></td>
+        <td class="text-center"><%= admin_agreement.room.name %></td>
+        <td class="text-center"><%= format_room_type(admin_agreement.room.room_type)   %></td>
+        <td class="text-center"><%= admin_agreement.owner.name %></td>
+        <td class="text-center"><%= admin_agreement.code %></td>
+        <td class="text-center"><% if admin_agreement.bill_code.nil? %><% else %> <%= admin_agreement.bill_code %><% end %></td>
+        <td class="text-center">
+          <% if !admin_agreement.bill_code.nil? %>
+            <div class="md-checkbox-inline">
+              <div class="md-checkbox">
+                <input type="checkbox" id="checkbox<%= admin_agreement.id %>" value="<%= admin_agreement.bill_id %>" class="md-check" name="" <% if admin_agreement.bill_status == Admin::Constants::BILL_PAID %>checked<% end %>>
+                <label for="checkbox<%= admin_agreement.id %>">
+                  <span></span>
+                  <span class="check"></span>
+                  <span class="box"></span></label>
+              </div>
+            </div>
+          <% end %>
+        </td>
+        <td class="text-center" width="145">
+          <a class="btn btn-circle btn-icon-only btn-default" data-remote="true" href="<%=  export_admin_bills_path(id: admin_agreement, month: admin_agreement.month, year: admin_agreement.year,bill_paid: admin_agreement.bill_status) %>"><i class="fa fa-credit-card"></i></a>
+          <% if !admin_agreement.bill_id.nil? %>
+              <a class="btn btn-circle btn-icon-only btn-default"  href="<%=  print_admin_bills_path(bill_id: admin_agreement.bill_id) %>.xlsx"><i class="fa fa-file-excel-o"></i></a>
+          <% else %>
+              <button type="button" class="btn btn-circle btn-icon-only btn-default disabled"><i class="fa fa-file-excel-o"></i></button>
+          <% end %>
+        </td>
+    </tr>
+<% end %>

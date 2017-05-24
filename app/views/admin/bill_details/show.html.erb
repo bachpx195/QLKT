@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @admin_bill_detail.user %>
+</p>
+
+<p>
+  <strong>Bill:</strong>
+  <%= @admin_bill_detail.bill %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @admin_bill_detail.service %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @admin_bill_detail.amount %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @admin_bill_detail.unit_price %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @admin_bill_detail.total %>
+</p>
+
+<%= link_to 'Edit', edit_admin_bill_detail_path(@admin_bill_detail) %> |
+<%= link_to 'Back', admin_bill_details_path %>

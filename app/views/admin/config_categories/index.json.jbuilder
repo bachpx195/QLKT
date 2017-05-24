@@ -1,0 +1,1 @@
+json.array! @admin_config_categories, partial: 'admin_config_categories/admin_config_category', as: :admin_config_category

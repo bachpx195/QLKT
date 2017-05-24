@@ -1,0 +1,13 @@
+<%= simple_form_for(@admin_agreement_renter) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.association :agreement %>
+    <%= f.association :renter %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

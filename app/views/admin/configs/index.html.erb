@@ -1,0 +1,117 @@
+<%= simple_form_for :configs, url: save_admin_configs_url, :method => :post, :html => {class: 'form-horizontal'} do |f| %>
+  <div class="portlet light portlet-fit bordered">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-settings font-green"></i>
+        <span class="caption-subject bold font-green uppercase"> <%= t(:config_management) %></span>
+      </div>
+
+      <div class="actions">
+        <%= f.button :button, class: 'btn green btn-outline btn-circle' do %>
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> <%= t(:save) %>
+        <% end %>
+        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+      </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="portlet light portlet-fit bordered">
+              <div class="portlet-title">
+                <div class="caption">
+                  <i class="fa fa-building-o" aria-hidden="true"></i>
+                  <span class="caption-subject bold font-green uppercase"> THÔNG TIN NHÀ TRỌ</span>
+                </div>
+              </div>
+              <div class="portlet-body">
+                <!--TEN-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:TEN_LABEL] %></label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="configs[name]" value="<%= session[:TEN] %>">
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--DIACHI-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:DIACHI_LABEL] %></label>
+                  <div class="col-md-9">
+                    <textarea type="text" class="form-control" rows="2" name="configs[address]"><%= session[:DIACHI] %></textarea>
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--DIENTHOAI-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:DIENTHOAI_LABEL] %></label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="configs[phone]" value="<%= session[:DIENTHOAI] %>">
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--CHUTRO-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:CHUTRO_LABEL] %></label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="configs[owner]" value="<%= session[:CHUTRO] %>">
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--TIEUDEHOADON-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:TIEUDEHOADON_LABEL] %></label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="configs[bill_title]" value="<%= session[:TIEUDEHOADON] %>">
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--TINHTHANH-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:TINHTHANH_LABEL] %></label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" name="configs[bill_province]" value="<%= session[:TINHTHANH] %>">
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+                <!--GHICHUHOADON-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-3 control-label"><%= session[:GHICHUHOADON_LABEL] %></label>
+                  <div class="col-md-9">
+                    <textarea type="text" class="form-control" rows="3" name="configs[bill_note]"><%= session[:GHICHUHOADON] %></textarea>
+                    <div class="form-control-focus"> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="portlet light portlet-fit bordered">
+              <div class="portlet-title">
+                <div class="caption">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  <span class="caption-subject bold font-green uppercase"> HỆ THỐNG</span>
+                </div>
+              </div>
+              <div class="portlet-body">
+                <!--CHUCNANGCOPY-->
+                <div class="form-group form-md-line-input">
+                  <label class="col-md-4 control-label"><%= session[:CHUCNANGCOPY_LABEL] %></label>
+                  <div class="col-md-8">
+                    <div class="md-checkbox-inline">
+                      <div class="md-checkbox">
+                        <input type="checkbox" id="checkbox33" class="md-check" name="configs[copy]" value="<%= session[:CHUCNANGCOPY] %>" <% if session[:CHUCNANGCOPY] == '1' %>checked<% end %>>
+                        <label for="checkbox33">
+                          <span></span>
+                          <span class="check"></span>
+                          <span class="box"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+<% end %>

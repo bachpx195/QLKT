@@ -1,0 +1,33 @@
+<%= render('search') %>
+
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th> <%= t(:electricity_water_building) %> </th>
+      <th> <%= t(:electricity_water_room) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_month_year) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_start_electricity) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_end_electricity) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_total_electricity) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_start_water) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_end_water) %> </th>
+      <th class="text-center"> <%= t(:electricity_water_total_water) %> </th>
+    </tr>
+    </thead>
+    <tbody class="item-container">
+    <%= render('electricity_water') %>
+    </tbody>
+  </table>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= will_paginate @admin_electricity_waters %>
+  </div>
+  <div class="col-md-6 margin-top-8 text-right">
+    <%= page_entries_info @admin_electricity_waters %>
+  </div>
+</div>
+
